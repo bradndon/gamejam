@@ -1,0 +1,22 @@
+{
+  "name": "gamejam",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "html-webpack-plugin": "^2.15.0",
+    "image-webpack-loader": "^3.0.0",
+    "script-loader": "^0.7.0",
+    "webpack": "^1.12.14",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "dependencies": {
+    "p2": "^0.7.1"
+  }
+}
