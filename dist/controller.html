@@ -3,5 +3,28 @@
         <meta charset="utf-8">
     </head>
     <body>
-    <script type="text/javascript" src="index_bundle.js"></script></body>
+      <script type="text/javascript"
+             src="https://www.airconsole.com/api/airconsole-1.5.0.js"></script>
+    <script type="text/javascript">var airconsole;
+    /**
+     * Sets up the communication to the screen.
+     */
+    function init() {
+      airconsole = new AirConsole({"orientation": "portrait"});
+      /*
+       * Checks if this device is part of the active game.
+       */
+      airconsole.onActivePlayersChange = function(player) {
+        var div = document.getElementById("player_id");
+        if (player !== undefined) {
+          div.innerHTML =  (["Left Player", "Right Player"][player]);
+        } else {
+          div.innerHTML = "It's a 2 player game!";
+        }
+      };
+    };
+      </script>
+
+     </body>
+
 </html>
