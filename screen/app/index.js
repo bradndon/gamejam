@@ -42,6 +42,7 @@ window.onload = function() {
         }
 
         if (this.elf.x === this.goalX && this.elf.y === this.goalY) {
+          console.log("Sending")
           airconsole.message(undefined, {action: "MOVE_DONE"})
         }
       }
