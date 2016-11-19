@@ -23,6 +23,9 @@ function init() {
   airconsole.onMessage = function(device_id, data) {
     if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
       document.getElementById("moveButtonsView").style.display = "block";
+    } else if (data.action == "INVENTORY_UPDATE") {
+      document.getElementById("inventory1").innerHTML = data.item
+      document.getElementById("inventory2").innerHTML = data.color
     }
   }
 };

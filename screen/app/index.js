@@ -5,7 +5,10 @@ var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-
+      var ITEMS = {"horse": ["body", "legs", "head"], "bear": ["body", "head"], "man": ["body", "legs", "head"]}
+      var ITEM_NAMES = ["horse", "bear", "man"]
+      var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
+      var COLOR_NAMES = {"red", "green", "blue"}
       var Elf = function(device_id) {
         this.device_id = device_id
         this.station = 0
@@ -15,6 +18,12 @@ window.onload = function() {
         this.goalY = this.elf.y
         game.physics.enable(this.elf, Phaser.Physics.ARCADE);
         this.traveling = false;
+        var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
+        var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
+        this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color][Math.floor(Math.random() * COLORS[color].length)]}
+        var message = {action: "INVENTORY_UPDATE"}
+        for (var attrname in this.inventory) { message[attrname] = this.inventory[attrname]; }
+        airconsole.message(this.device_id, message)
       }
       Elf.prototype.gotoStation = function(station) {
         console.log(station)
