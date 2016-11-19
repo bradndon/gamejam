@@ -70,12 +70,10 @@ window.onload = function() {
 
           airconsole = new AirConsole();
               airconsole.onReady = function() {};
-
-              // As soon as a device connects we add it to our device-map
-              airconsole.onConnect = function(device_id) {
-                  // Only first two devices can play
-                  elf = new Elf();
-
+                airconsole.onConnect = function(device_id) {
+                  if (elf == null) {
+                    elf = new Elf();
+                  }
               };
               airconsole.onMessage = function(device_id, data) {
                 console.log(data)
