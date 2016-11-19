@@ -52,11 +52,7 @@ window.onload = function() {
       var stations;
       var elf;
       function create () {
-        airconsole.onMessage = function(device_id, data) {
-          if (elf != null) {
-            elf.gotoStation(data.station)
-          }
-        }
+
 
           stations = []
           stations.push(game.add.sprite(100,100, 'station'))
@@ -81,6 +77,11 @@ window.onload = function() {
                   elf = new Elf();
 
               };
+              airconsole.onMessage = function(device_id, data) {
+                if (elf != null) {
+                  elf.gotoStation(data.station)
+                }
+              }
       }
       function update() {
         if (elf != null) {
