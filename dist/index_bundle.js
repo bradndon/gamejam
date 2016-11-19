@@ -55,7 +55,6 @@
 	window.p2 = __webpack_require__(3)
 	window.Phaser = __webpack_require__(4)
 	var AirConsole = __webpack_require__(6)
-
 	window.onload = function() {
 
 
@@ -75,7 +74,6 @@
 
 	          var logo = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
 	          logo.anchor.setTo(0.5, 0.5);
-	          var airconsole = new AirConsole();
 	          airconsole = new AirConsole();
 	              airconsole.onReady = function() {};
 
@@ -104575,6 +104573,8 @@
 	                            }
 	                          });
 	});
+
+	module.exports = AirConsole
 
 
 /***/ }
