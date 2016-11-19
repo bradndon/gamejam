@@ -21,7 +21,7 @@ function init() {
     }
   };
   airconsole.onMessage = function(device_id, data) {
-    if (device_id == AirConsole.SCREEN) {
+    if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
       document.getElementById("moveButtonsView").style.display = "block";
     }
   }
