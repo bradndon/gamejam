@@ -60,15 +60,14 @@
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
 	      var Elf = function() {
-	        this.goalX = 0
-	        this.goalY = 0
+
 	        this.station = 0
 	        this.elf = game.add.sprite(game.world.centerX, game.world.centerY, 'elf');
 	        this.elf.anchor.setTo(0.5, 0.5);
+	        this.goalX = this.elf.x
+	        this.goalY = this.elf.y
 	        game.physics.enable(this.elf, Phaser.Physics.ARCADE);
-	        this.elf.body.velocity.x = 20
 	        this.traveling = false;
-	        console.log("Created")
 	      }
 	      Elf.prototype.gotoStation = function(station) {
 	        console.log(station)
