@@ -58,7 +58,7 @@
 
 	window.onload = function() {
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-	      var ITEMS = {"horse": ["body", "legs", "head"], "bear": ["body", "head"], "man": ["body", "legs", "head"]}
+	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["bearbody", "bearlegs", "bearhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
 	      var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
 	      var COLOR_NAMES = ["red", "green", "blue"]
@@ -73,9 +73,9 @@
 	        this.traveling = false;
 	        var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
 	        var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
-	        this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color][Math.floor(Math.random() * COLORS[color].length)]}
-	        var message = {action: "INVENTORY_UPDATE"}
-	        for (var attrname in this.inventory) { message[attrname] = this.inventory[attrname]; }
+	        this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
+	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
+	        console.log(message)
 	        airconsole.message(this.device_id, message)
 	      }
 	      Elf.prototype.gotoStation = function(station) {
