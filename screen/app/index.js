@@ -69,12 +69,10 @@ window.onload = function() {
 
 
           airconsole = new AirConsole();
-              airconsole.onReady = function() {};
+              airconsole.onReady = function() { elf = new Elf();};
                 airconsole.onConnect = function(device_id) {
-                  if (elf == null) {
-                    elf = new Elf();
-                  }
-              };
+                  
+                };
               airconsole.onMessage = function(device_id, data) {
                 console.log(data)
                 if (elf != null) {
