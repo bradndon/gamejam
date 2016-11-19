@@ -78,6 +78,7 @@ window.onload = function() {
 
               };
               airconsole.onMessage = function(device_id, data) {
+                console.log(data)
                 if (elf != null) {
                   elf.gotoStation(data.station)
                 }
