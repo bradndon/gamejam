@@ -42,7 +42,7 @@ window.onload = function() {
         }
 
         if (this.elf.x === this.goalX && this.elf.y === this.goalY) {
-          airconsole.broadcast({action: "MOVE_DONE"})
+          airconsole.message(undefined, {action: "MOVE_DONE"})
         }
       }
 
@@ -77,7 +77,6 @@ window.onload = function() {
 
                 };
               airconsole.onMessage = function(device_id, data) {
-                console.log(data)
                 if (elf != null) {
                   elf.gotoStation(data.station)
                 }
