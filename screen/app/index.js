@@ -9,7 +9,7 @@ window.onload = function() {
       var Elf = function(device_id) {
         this.device_id = device_id
         this.station = 0
-        this.elf = game.add.sprite(game.world.centerX, game.world.centerY, 'elf');
+        this.elf = game.add.sprite(game.world.randomX, game.world.randomY, 'elf');
         this.elf.anchor.setTo(0.5, 0.5);
         this.goalX = this.elf.x
         this.goalY = this.elf.y
