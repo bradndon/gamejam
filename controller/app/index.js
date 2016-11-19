@@ -25,7 +25,8 @@ function init() {
       document.getElementById("moveButtonsView").style.display = "block";
     } else if (data.action == "INVENTORY_UPDATE") {
       document.getElementById("inventory1").innerHTML = data.item
-      document.getElementById("inventory2").innerHTML = data.color
+      document.getElementById("inventoryitemimage").src = data.item + ".png"
+      document.getElementById("inventory2").style.backgroundColor = data.color
     }
   }
 };
