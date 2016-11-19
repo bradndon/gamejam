@@ -21,6 +21,7 @@ window.onload = function() {
         this.goalX = stations[station].x;
         this.goalY = stations[station].y;
         this.station = station
+        this.traveling = true
       }
 
       Elf.prototype.update = function() {
@@ -41,9 +42,9 @@ window.onload = function() {
           this.elf.body.velocity.y = 50;
         }
 
-        if (this.elf.x === this.goalX && this.elf.y === this.goalY) {
-          console.log("Sending")
+        if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
           airconsole.message(undefined, {action: "MOVE_DONE"})
+          this.traveling = false;
         }
       }
 
