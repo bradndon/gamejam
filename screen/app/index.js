@@ -6,8 +6,8 @@ var AirConsole = require('airconsole/airconsole-1.6.0')
 window.onload = function() {
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 
-      var Elf = function() {
-
+      var Elf = function(device_id) {
+        this.device_id = device_id
         this.station = 0
         this.elf = game.add.sprite(game.world.centerX, game.world.centerY, 'elf');
         this.elf.anchor.setTo(0.5, 0.5);
@@ -43,7 +43,7 @@ window.onload = function() {
         }
 
         if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
-          airconsole.message(undefined, {action: "MOVE_DONE"})
+          airconsole.message(this.device_id, {action: "MOVE_DONE"})
           this.traveling = false;
         }
       }
@@ -55,9 +55,9 @@ window.onload = function() {
 
       }
       var stations;
-      var elf;
+      var elves;
       function create () {
-
+          elves = {}
 
           stations = []
           stations.push(game.add.sprite(100,100, 'station'))
@@ -70,23 +70,20 @@ window.onload = function() {
           stations.push(game.add.sprite(200,100, 'station'))
           stations[3].anchor.setTo(0.5,0.5)
 
-          elf = new Elf();
-
-
           airconsole = new AirConsole();
               airconsole.onReady = function() { };
                 airconsole.onConnect = function(device_id) {
-
+                  elves[device_id] = new Elf(device_id)
                 };
               airconsole.onMessage = function(device_id, data) {
-                if (elf != null) {
-                  elf.gotoStation(data.station)
+                if (elves[device_id] != null) {
+                  elves[device_id].gotoStation(data.station)
                 }
               }
       }
       function update() {
-        if (elf != null) {
-          elf.update()
+        for (elf in elves) {
+          elves[elf].update();
         }
       }
 
