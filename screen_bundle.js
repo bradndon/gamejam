@@ -68,6 +68,7 @@
 	        game.physics.enable(this.elf, Phaser.Physics.ARCADE);
 	        this.elf.body.velocity.x = 20
 	        this.traveling = false;
+	        console.log("Created")
 	      }
 	      Elf.prototype.gotoStation = function(station) {
 	        console.log(station)
