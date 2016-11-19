@@ -118,13 +118,13 @@
 	          stations.push(game.add.sprite(200,100, 'station'))
 	          stations[3].anchor.setTo(0.5,0.5)
 
-
+	          elf = new Elf();
 
 
 	          airconsole = new AirConsole();
-	              airconsole.onReady = function() { elf = new Elf();};
+	              airconsole.onReady = function() { };
 	                airconsole.onConnect = function(device_id) {
-	                  
+
 	                };
 	              airconsole.onMessage = function(device_id, data) {
 	                console.log(data)
