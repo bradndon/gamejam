@@ -41,6 +41,9 @@ window.onload = function() {
           this.elf.body.velocity.y = 50;
         }
 
+        if (this.elf.x === this.goalX && this.elf.y === this.goalY) {
+          airconsole.broadcast({action: "MOVE_DONE"})
+        }
       }
 
       function preload () {

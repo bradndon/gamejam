@@ -73,24 +73,29 @@
 	      div.innerHTML = "It's a 2 player game!";
 	    }
 	  };
+	  airconsole.onMessage = function(device_id, data) {
+	    if (device_id == AirConsole.SCREEN) {
+	      document.getElementById("moveButtonsView").style.display = "block";
+	    }
+	  }
 	};
 	window.onload = function() {
 	  init();
 	  document.getElementById("button0").addEventListener("click", function() {
-	    console.log("HERE")
 	    airconsole.message(AirConsole.SCREEN, {station: 0})
+	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button1").addEventListener("click", function() {
-	    console.log("HERE")
 	    airconsole.message(AirConsole.SCREEN, {station: 1})
+	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button2").addEventListener("click", function() {
-	    console.log("HERE")
 	    airconsole.message(AirConsole.SCREEN, {station: 2})
+	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button3").addEventListener("click", function() {
-	    console.log("HERE")
 	    airconsole.message(AirConsole.SCREEN, {station: 3})
+	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	};
 
