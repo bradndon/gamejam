@@ -89,18 +89,23 @@
 	  init();
 	  document.getElementById("button0").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("workstation").innerHTML = ""
+
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 0})
 	  });
 	  document.getElementById("button1").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("workstation").innerHTML = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 1})
 	  });
 	  document.getElementById("button2").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("workstation").innerHTML = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 2})
 	  });
 	  document.getElementById("button3").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("workstation").innerHTML = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
 	  });
 	  document.getElementById("inventory1").addEventListener("click", function() {
