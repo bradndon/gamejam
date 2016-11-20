@@ -156,11 +156,11 @@ window.onload = function() {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
                     console.log("STATION_UPDATE")
-                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
+                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
                   } else {
                     if (stations[elf.station].addColor(elf.inventory.color)) {
                       elf.getNewColor()
-                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
+                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
                     } else {
                       console.log("NOPE")
                     }
