@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.1.4")
+	      console.log("version 0.0.0.0.0.1.5")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -226,12 +226,14 @@
 	                  if (data.item == "item") {
 	                    stations[elf.station].addItem(elf.inventory.item)
 	                    elf.getNewItem()
-	                    if (item.indexOf("head") !== -1) {
-	                      document.getElementById("headimage").src = item + ".png"
-	                    } else if (item.indexOf("body") !== -1) {
-	                      document.getElementById("bodyimage").src = item + ".png"
-	                    } else {
-	                      document.getElementById("legsimage").src = item + ".png"
+	                    for (item in stations[elf.station].items) {
+	                      if (item.indexOf("head") !== -1) {
+	                        document.getElementById("headimage").src = item + ".png"
+	                      } else if (item.indexOf("body") !== -1) {
+	                        document.getElementById("bodyimage").src = item + ".png"
+	                      } else {
+	                        document.getElementById("legsimage").src = item + ".png"
+	                      }
 	                    }
 	                    console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items})
 	                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
