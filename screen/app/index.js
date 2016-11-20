@@ -73,7 +73,7 @@ window.onload = function() {
           for (elf in elves) {
             console.log("HERE")
             if (elf != this && this.elf.x === elves[elf].x && this.elf.y === elves[elf].y) {
-              this.gotoStation(prevStation)
+              this.gotoStation(this.prevStation)
               return
             }
           }
