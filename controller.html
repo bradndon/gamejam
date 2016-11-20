@@ -7,16 +7,21 @@
           margin: 0;
           box-sizing: border-box;
         }
+        #topbar {
+          width: 100%;
+          height: 10%;
+          background-color: blue;
+        }
         #waiting {
           width: 100%;
-          height: 50%;
+          height: 40%;
         }
         #moveButtonsView {
           position: absolute;
-          top:0;
+          top:10%;
           left:0;
           width: 100%;
-          height: 50%;
+          height: 40%;
         }
         .moveButton {
           float: left;
@@ -48,14 +53,14 @@
           background-color: white;
         }
         #inventoryitemimage {
-          height: 75%;
         }
         </style>
 
     </head>
     <body>
+      <div id="topbar"></div>
       <div id="waiting">
-        <img src="./waiting.png"/>
+        <img style="height: 50%;" src="./waiting.png"/>
       </div>
       <div id="moveButtonsView">
         <button id="button0" class="moveButton" style="background-color:blue">Goto top left</button>
@@ -74,7 +79,9 @@
         </div>
       </div>
       <div id="workstation">
-        Workstation
+        <img id="bodyimage" src="bearhead.png"/>
+        <img id="headimage" src="manbody.png"/>
+        <img id="legsimage" src="horselegs.png"/>
       </div>
      <script type="text/javascript" src="index_bundle.js"></script></body>
 
