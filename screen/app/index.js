@@ -76,9 +76,35 @@ window.onload = function() {
               return
             }
           }
-          airconsole.message(this.device_id, {action: "MOVE_DONE"})
+          airconsole.message(this.device_id, {action: "MOVE_DONE", station: stations[this.station]})
           this.traveling = false;
         }
+      }
+
+      var Station = function(x, y) {
+        this.station = game.add.sprite(x,y,'station');
+        this.station.scale.setTo(2,2)
+        this.station.anchor.setTo(0.5,0.5)
+        this.items = {}
+        this.x = x
+        this.y = y
+      }
+
+      Station.prototype.addItem = function(item) {
+        if (this.items.items === undefined) {
+          this.items.items = [item]
+        } else {
+          this.items.items.push(item)
+        }
+
+      }
+
+      Station.prototype.addColor = function(color) {
+        if (this.items.color === undefined && this.items.items !== undefined) {
+          this.items.color = color
+          return true
+        }
+        return false
       }
 
       function preload () {
@@ -94,25 +120,23 @@ window.onload = function() {
           elves = {}
 
           stations = []
-          stations.push(game.add.sprite(150, 300, 'station'))
-          stations[0].scale.setTo(2,2)
-          stations[0].anchor.setTo(0.5,0.5)
-          stations.push(game.add.sprite(150,500, 'station'))
-          stations[1].anchor.setTo(0.5,0.5)
-          stations[1].scale.setTo(2,2)
-          stations.push(game.add.sprite(500,500, 'station'))
-          stations[2].anchor.setTo(0.5,0.5)
-          stations[2].scale.setTo(2,2)
-          stations.push(game.add.sprite(500,300, 'station'))
-          stations[3].anchor.setTo(0.5,0.5)
-          stations[3].scale.setTo(2,2)
+          stations.push(new Station(150,300))
+          stations[0].items = {items: ["horselegs"], color: ""}
+          stations.push(new Station(150,500))
+          stations.push(new Station(500,500))
+          stations.push(new Station(500,300))
 
 
-          //
-          // elves[1] = new Elf(1)
-          // elves[2] = new Elf(2);
-          // elves[1].gotoStation(1)
-          // elves[2].gotoStation(1)
+          elves[1] = new Elf(1)
+          elves[2] = new Elf(2);
+          elves[1].gotoStation(1)
+          elves[2].gotoStation(1)
+          console.log(elves[2].inventory)
+          stations[elves[2].station].addItem(elves[2].inventory.item)
+          console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
+          console.log(elves[2].inventory)
+          console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
+
           airconsole = new AirConsole();
               airconsole.onReady = function() {
 
@@ -124,13 +148,21 @@ window.onload = function() {
               airconsole.onMessage = function(device_id, data) {
                 console.log(data)
                 console.log(device_id)
-                if (elves[device_id] != null && data.action == "MOVE_STATION") {
-                  elves[device_id].gotoStation(data.station)
+                var elf = elves[device_id]
+                if (elf != null && data.action == "MOVE_STATION") {
+                  elf.gotoStation(data.station)
                 } else if (elves[device_id] != null && data.action == "USE_ITEM") {
                   if (data.item == "item") {
-                    elves[device_id].getNewItem()
+                    stations[elf.station].addItem(elf.inventory.item)
+                    elf.getNewItem()
+                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station: stations[this.station]})
                   } else {
-                    elves[device_id].getNewColor()
+                    if (stations[elf.station].addColor(elf.inventory.color)) {
+                      elf.getNewColor()
+                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station: stations[this.station]})
+                    } else {
+                      console.log("NOPE")
+                    }
                   }
                 }
               }
