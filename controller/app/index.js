@@ -33,9 +33,9 @@ function init() {
     } else if (data.action == "STATION_UPDATE") {
       if (data.station_items.items != undefined) {
         for (item in data.station_items.items) {
-          if (item.includes("head")) {
+          if (item.indexOf("head") !== -1) {
             document.getElementById("headimage").src = item + ".png"
-          } else if (item.includes("body")) {
+          } else if (item.indexOf("body") !== -1) {
             document.getElementById("bodyimage").src = item + ".png"
           } else {
             document.getElementById("legsimage").src = item + ".png"

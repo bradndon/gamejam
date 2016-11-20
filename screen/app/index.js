@@ -173,14 +173,12 @@ window.onload = function() {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
-                    for (item in stations[elf.station].items) {
-                      if (item.includes("head")) {
-                        console.log("HEAD")
-                      } else if (item.includes("body")) {
-                        console.log("BODY")
-                      } else {
-                        console.log("LEGS")
-                      }
+                    if (item.indexOf("head") !== -1) {
+                      document.getElementById("headimage").src = item + ".png"
+                    } else if (item.indexOf("body") !== -1) {
+                      document.getElementById("bodyimage").src = item + ".png"
+                    } else {
+                      document.getElementById("legsimage").src = item + ".png"
                     }
                     console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items})
                     airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
