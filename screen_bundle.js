@@ -76,14 +76,12 @@
 	        var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
 	        this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
 	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-	        console.log(message)
 	        airconsole.message(this.device_id, message)
 	      }
 	      Elf.prototype.getNewItem = function() {
 	        var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
 	        this.inventory.item = ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)]
 	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-	        console.log(message)
 	        airconsole.message(this.device_id, message)
 	      }
 
@@ -91,7 +89,6 @@
 	        var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
 	        this.inventory.color = COLORS[color]
 	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-	        console.log(message)
 	        airconsole.message(this.device_id, message)
 	      }
 
@@ -164,10 +161,12 @@
 	          airconsole = new AirConsole();
 	              airconsole.onReady = function() { };
 	                airconsole.onConnect = function(device_id) {
+	                  console.log(device_id)
 	                  elves[device_id] = new Elf(device_id)
 	                };
 	              airconsole.onMessage = function(device_id, data) {
 	                console.log(data)
+	                console.log(device_id)
 	                if (elves[device_id] != null && data.action == "MOVE_STATION") {
 	                  elves[device_id].gotoStation(data.station)
 	                } else if (elves[device_id] != null && data.action == "USE_ITEM") {
