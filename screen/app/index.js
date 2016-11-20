@@ -173,6 +173,15 @@ window.onload = function() {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
+                    for (item in stations[elf.station].items) {
+                      if (item.includes("head")) {
+                        console.log("HEAD")
+                      } else if (item.includes("body")) {
+                        console.log("BODY")
+                      } else {
+                        console.log("LEGS")
+                      }
+                    }
                     console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items})
                     airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
                   } else {
