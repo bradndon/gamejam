@@ -77,6 +77,10 @@
 	      if (data.station_items.items != undefined) {
 	        document.getElementById("workstation").innerHTML = data.station_items.items
 	      }
+	    } else if (data.action == "STATION_UPDATE") {
+	      if (data.station_items.items != undefined) {
+	        document.getElementById("workstation").innerHTML = data.station_items.items
+	      }
 	    } else if (data.action == "INVENTORY_UPDATE") {
 	      // document.getElementById("inventory1").innerHTML = data.item
 	      document.getElementById("inventoryitemimage").src = data.item + ".png"
