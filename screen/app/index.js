@@ -155,6 +155,7 @@ window.onload = function() {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
+                    console.log("STATION_UPDATE")
                     airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
                   } else {
                     if (stations[elf.station].addColor(elf.inventory.color)) {
