@@ -126,16 +126,16 @@ window.onload = function() {
           stations.push(new Station(500,500))
           stations.push(new Station(500,300))
 
-
-          elves[1] = new Elf(1)
-          elves[2] = new Elf(2);
-          elves[1].gotoStation(1)
-          elves[2].gotoStation(1)
-          console.log(elves[2].inventory)
-          stations[elves[2].station].addItem(elves[2].inventory.item)
-          console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
-          console.log(elves[2].inventory)
-          console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
+          // 
+          // elves[1] = new Elf(1)
+          // elves[2] = new Elf(2);
+          // elves[1].gotoStation(1)
+          // elves[2].gotoStation(1)
+          // console.log(elves[2].inventory)
+          // stations[elves[2].station].addItem(elves[2].inventory.item)
+          // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
+          // console.log(elves[2].inventory)
+          // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
 
           airconsole = new AirConsole();
               airconsole.onReady = function() {
