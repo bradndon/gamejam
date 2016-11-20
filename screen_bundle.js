@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.1.9")
+	      console.log("version 0.0.0.0.0.2.0")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -79,13 +79,13 @@
 	        var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
 	        this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
 	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-	        // airconsole.message(this.device_id, message)
+	        airconsole.message(this.device_id, message)
 	      }
 	      Elf.prototype.getNewItem = function() {
 	        var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
 	        this.inventory.item = ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)]
 	        var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-	        // airconsole.message(this.device_id, message)
+	        airconsole.message(this.device_id, message)
 	      }
 
 	      Elf.prototype.getNewColor = function() {
@@ -134,7 +134,7 @@
 	            }
 	          }
 
-	          // airconsole.message(this.device_id, {action: "MOVE_DONE", station_items: stations[this.station].items})
+	          airconsole.message(this.device_id, {action: "MOVE_DONE", station_items: stations[this.station].items})
 	          this.elf.animations.stop()
 	          this.elf.frame = 0
 	          this.traveling = false;
@@ -188,22 +188,22 @@
 	          stations.push(new Station(500,500))
 	          stations.push(new Station(500,300))
 
-	          elves[1] = new Elf(1, "red")
-	          elves[2] = new Elf(2, "green");
-	          elves[1].gotoStation(1)
-	          elves[2].gotoStation(1)
-	          stations[  elves[2].station].addItem(  elves[2].inventory.item)
-	            elves[2].getNewItem()
-	          for (item in stations[  elves[2].station].items.items) {
-	            console.log(item)
-	            if (stations[  elves[2].station].items.items[item].indexOf("head") !== -1) {
-	              console.log("head")
-	            } else if (stations[  elves[2].station].items.items[item].indexOf("body") !== -1) {
-	              console.log("body")
-	            } else {
-	              console.log("legs")
-	            }
-	          }
+	          // elves[1] = new Elf(1, "red")
+	          // elves[2] = new Elf(2, "green");
+	          // elves[1].gotoStation(1)
+	          // elves[2].gotoStation(1)
+	          // stations[  elves[2].station].addItem(  elves[2].inventory.item)
+	          //   elves[2].getNewItem()
+	          // for (item in stations[  elves[2].station].items.items) {
+	          //   console.log(item)
+	          //   if (stations[  elves[2].station].items.items[item].indexOf("head") !== -1) {
+	          //     console.log("head")
+	          //   } else if (stations[  elves[2].station].items.items[item].indexOf("body") !== -1) {
+	          //     console.log("body")
+	          //   } else {
+	          //     console.log("legs")
+	          //   }
+	          // }
 	          // console.log(elves[2].inventory)
 	          // stations[elves[2].station].addItem(elves[2].inventory.item)
 	          // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
