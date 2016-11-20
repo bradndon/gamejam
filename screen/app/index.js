@@ -77,23 +77,27 @@ window.onload = function() {
 
         game.load.image('elf', require('./assets/elf.png'));
         game.load.image('station', require('./assets/station.png'));
-
+        game.load.image('background', require('./assets/Background.png'))
       }
       var stations;
       var elves;
       function create () {
+        game.add.sprite(0,0, 'background')
           elves = {}
 
           stations = []
-          stations.push(game.add.sprite(100,100, 'station'))
+          stations.push(game.add.sprite(150, 300, 'station'))
           stations[0].scale.setTo(2,2)
           stations[0].anchor.setTo(0.5,0.5)
-          stations.push(game.add.sprite(130,200, 'station'))
+          stations.push(game.add.sprite(150,500, 'station'))
           stations[1].anchor.setTo(0.5,0.5)
-          stations.push(game.add.sprite(200,200, 'station'))
+          stations[1].scale.setTo(2,2)
+          stations.push(game.add.sprite(500,500, 'station'))
           stations[2].anchor.setTo(0.5,0.5)
-          stations.push(game.add.sprite(200,100, 'station'))
+          stations[2].scale.setTo(2,2)
+          stations.push(game.add.sprite(500,300, 'station'))
           stations[3].anchor.setTo(0.5,0.5)
+          stations[3].scale.setTo(2,2)
 
           airconsole = new AirConsole();
               airconsole.onReady = function() { };
