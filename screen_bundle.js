@@ -65,6 +65,7 @@
 	      var Elf = function(device_id) {
 	        this.device_id = device_id
 	        this.station = 0
+	        this.prevStation = 0
 	        this.elf = game.add.sprite(game.world.randomX, game.world.randomY, 'elf');
 	        this.elf.anchor.setTo(0.5, 0.5);
 	        this.goalX = this.elf.x
@@ -98,6 +99,7 @@
 	        console.log(station)
 	        this.goalX = stations[station].x;
 	        this.goalY = stations[station].y;
+	        this.prevStation = this.station
 	        this.station = station
 	        this.traveling = true
 	      }
@@ -107,20 +109,26 @@
 	          this.elf.body.velocity.x = 0;
 	          this.elf.x = this.goalX
 	        }  else if (this.goalX < this.elf.x) {
-	          this.elf.body.velocity.x = -50;
+	          this.elf.body.velocity.x = -150;
 	        } else if (this.goalX > this.elf.x) {
-	          this.elf.body.velocity.x = 50;
+	          this.elf.body.velocity.x = 150;
 	        }
 	        if (this.goalY - 5 < this.elf.y && this.goalY + 5 > this.elf.y) {
 	          this.elf.body.velocity.y = 0;
 	          this.elf.y = this.goalY
 	        } else if (this.goalY < this.elf.y) {
-	          this.elf.body.velocity.y = -50;
+	          this.elf.body.velocity.y = -150;
 	        } else if (this.goalY > this.elf.y) {
-	          this.elf.body.velocity.y = 50;
+	          this.elf.body.velocity.y = 150;
 	        }
 
 	        if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
+	          for (elf in elves) {
+	            if (elf != this && this.elf.x === elf.x && this.elf.y === elf.y) {
+	              this.gotoStation(prevStation)
+	              return
+	            }
+	          }
 	          airconsole.message(this.device_id, {action: "MOVE_DONE"})
 	          this.traveling = false;
 	        }
