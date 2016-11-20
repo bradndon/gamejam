@@ -102,7 +102,7 @@
 	      // document.getElementById("inventory1").innerHTML = data.item
 	      document.getElementById("inventoryitemimage").src = data.item + ".png"
 	      document.getElementById("inventory2").innerHTML = data.color
-	      document.getElementById("inventory2").style.background = data.color
+	      // document.getElementById("inventory2").style.background = data.color
 	    } else if (data.action == "SET_COLOR") {
 	      document.getElementById("topbar").style.background = data.color
 	    }
@@ -129,18 +129,31 @@
 	  init();
 	  document.getElementById("button0").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("legsimage").src = ""
+	    document.getElementById("bodyimage").src = ""
+	    document.getElementById("headimage").src = ""
+
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 0})
 	  });
 	  document.getElementById("button1").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("legsimage").src = ""
+	    document.getElementById("bodyimage").src = ""
+	    document.getElementById("headimage").src = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 1})
 	  });
 	  document.getElementById("button2").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("legsimage").src = ""
+	    document.getElementById("bodyimage").src = ""
+	    document.getElementById("headimage").src = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 2})
 	  });
 	  document.getElementById("button3").addEventListener("click", function() {
 	    document.getElementById("moveButtonsView").style.display = "none";
+	    document.getElementById("legsimage").src = ""
+	    document.getElementById("bodyimage").src = ""
+	    document.getElementById("headimage").src = ""
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
 	  });
 	  document.getElementById("inventory1").addEventListener("click", function() {
