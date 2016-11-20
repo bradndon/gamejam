@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.1.1")
+      console.log("version 0.0.0.0.0.1.2")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -173,7 +173,7 @@ window.onload = function() {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
-                    console.log("STATION_UPDATE")
+                    console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items})
                     airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
                   } else {
                     if (stations[elf.station].addColor(elf.inventory.color)) {
