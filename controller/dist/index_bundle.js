@@ -81,7 +81,6 @@
 	      // document.getElementById("inventory1").innerHTML = data.item
 	      document.getElementById("inventoryitemimage").src = data.item + ".png"
 	      document.getElementById("inventory2").innerHTML = data.color
-
 	      document.getElementById("inventory2").style.background = data.color
 	    }
 	  }
@@ -89,20 +88,29 @@
 	window.onload = function() {
 	  init();
 	  document.getElementById("button0").addEventListener("click", function() {
-	    airconsole.message(AirConsole.SCREEN, {station: 0})
+	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 0})
 	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button1").addEventListener("click", function() {
-	    airconsole.message(AirConsole.SCREEN, {station: 1})
+	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 1})
 	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button2").addEventListener("click", function() {
-	    airconsole.message(AirConsole.SCREEN, {station: 2})
+	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 2})
 	    document.getElementById("moveButtonsView").style.display = "none";
 	  });
 	  document.getElementById("button3").addEventListener("click", function() {
-	    airconsole.message(AirConsole.SCREEN, {station: 3})
+	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
 	    document.getElementById("moveButtonsView").style.display = "none";
+	  });
+	  document.getElementById("inventory1").addEventListener("click", function() {
+	    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
+	    document.getElementById("inventoryitemimage").src = ""
+	  });
+	  document.getElementById("inventory2").addEventListener("click", function() {
+	    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
+	    document.getElementById("inventory2").innerHTML = "Waiting for new Item"
+	    document.getElementById("inventory2").style.background = ""
 	  });
 	};
 
