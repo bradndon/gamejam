@@ -58,7 +58,7 @@
 
 	window.onload = function() {
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
-	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["bearbody", "bearlegs", "bearhead"]}
+	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
 	      var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
 	      var COLOR_NAMES = ["red", "green", "blue"]
@@ -154,6 +154,7 @@
 	                  elves[device_id] = new Elf(device_id)
 	                };
 	              airconsole.onMessage = function(device_id, data) {
+	                console.log(data)
 	                if (elves[device_id] != null && data.action == "MOVE_STATION") {
 	                  elves[device_id].gotoStation(data.station)
 	                } else if (elves[device_id] != null && data.action == "USE_ITEM") {

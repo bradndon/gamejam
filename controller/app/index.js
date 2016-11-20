@@ -51,12 +51,14 @@ window.onload = function() {
     document.getElementById("moveButtonsView").style.display = "none";
   });
   document.getElementById("inventory1").addEventListener("click", function() {
-    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
     document.getElementById("inventoryitemimage").src = ""
+    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
+
   });
   document.getElementById("inventory2").addEventListener("click", function() {
-    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
     document.getElementById("inventory2").innerHTML = "Waiting for new Item"
     document.getElementById("inventory2").style.background = ""
+    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
+
   });
 };
