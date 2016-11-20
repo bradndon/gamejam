@@ -18,12 +18,12 @@ function init() {
       document.getElementById("moveButtonsView").style.display = "block";
       if (data.station_items.items != undefined) {
         for (item in data.station_items.items) {
-          if (item.includes("head")) {
-            document.getElementById("headimage").src = item + ".png"
-          } else if (item.includes("body")) {
-            document.getElementById("bodyimage").src = item + ".png"
+          if (data.station_items.items[item].indexOf("head") !== -1) {
+            document.getElementById("headimage").src = data.station_items.items[item] + ".png"
+          } else if (data.station_items.items[item].indexOf("body") !== -1) {
+            document.getElementById("bodyimage").src = data.station_items.items[item] + ".png"
           } else {
-            document.getElementById("legsimage").src = item + ".png"
+            document.getElementById("legsimage").src = data.station_items.items[item] + ".png"
           }
         }
       }
@@ -33,12 +33,12 @@ function init() {
     } else if (data.action == "STATION_UPDATE") {
       if (data.station_items.items != undefined) {
         for (item in data.station_items.items) {
-          if (item.indexOf("head") !== -1) {
-            document.getElementById("headimage").src = item + ".png"
-          } else if (item.indexOf("body") !== -1) {
-            document.getElementById("bodyimage").src = item + ".png"
+          if (data.station_items.items[item].indexOf("head") !== -1) {
+            document.getElementById("headimage").src = data.station_items.items[item] + ".png"
+          } else if (data.station_items.items[item].indexOf("body") !== -1) {
+            document.getElementById("bodyimage").src = data.station_items.items[item] + ".png"
           } else {
-            document.getElementById("legsimage").src = item + ".png"
+            document.getElementById("legsimage").src = data.station_items.items[item] + ".png"
           }
         }
       }
