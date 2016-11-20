@@ -76,7 +76,7 @@ window.onload = function() {
               return
             }
           }
-          airconsole.message(this.device_id, {action: "MOVE_DONE", station: stations[this.station]})
+          airconsole.message(this.device_id, {action: "MOVE_DONE", station_items: stations[this.station].items})
           this.traveling = false;
         }
       }
@@ -126,7 +126,7 @@ window.onload = function() {
           stations.push(new Station(500,500))
           stations.push(new Station(500,300))
 
-          // 
+          //
           // elves[1] = new Elf(1)
           // elves[2] = new Elf(2);
           // elves[1].gotoStation(1)
@@ -155,11 +155,11 @@ window.onload = function() {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
                     elf.getNewItem()
-                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station: stations[this.station]})
+                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
                   } else {
                     if (stations[elf.station].addColor(elf.inventory.color)) {
                       elf.getNewColor()
-                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station: stations[this.station]})
+                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
                     } else {
                       console.log("NOPE")
                     }

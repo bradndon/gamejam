@@ -22,7 +22,7 @@ function init() {
     if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
       document.getElementById("moveButtonsView").style.display = "block";
       if (data.station.items.items != undefined)
-        document.getElementById("workstation").innerHTML = data.station.items.items
+        document.getElementById("workstation").innerHTML = data.station_items.items
     } else if (data.action == "INVENTORY_UPDATE") {
       // document.getElementById("inventory1").innerHTML = data.item
       document.getElementById("inventoryitemimage").src = data.item + ".png"
