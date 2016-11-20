@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.1.6")
+      console.log("version 0.0.0.0.0.1.7")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
