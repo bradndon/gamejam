@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.0.5")
+	      console.log("version 0.0.0.0.0.0.6")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -204,8 +204,11 @@
 	              };
 	                airconsole.onConnect = function(device_id) {
 	                  airconsole.setActivePlayers(3)
+
 	                  var colors = ["red", "green", "blue"]
 	                  elves[device_id] = new Elf(device_id, colors[airconsole.convertDeviceIdToPlayerNumber(device_id)])
+	                  console.log(airconsole.convertPlayerNumberToDeviceId(0))
+	                  console.log(airconsole.convertDeviceIdToPlayerNumber(device_id))
 	                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(0), {action: "SET_COLOR", color:"#ff0000"})
 	                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(1), {action: "SET_COLOR", color:"#00ff00"})
 	                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(2), {action: "SET_COLOR", color:"#0000ff"})
