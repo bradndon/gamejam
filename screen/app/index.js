@@ -69,7 +69,9 @@ window.onload = function() {
         if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
           for (elf in elves) {
             console.log("HERE")
-            if (elf != this && this.elf.x === elves[elf].x && this.elf.y === elves[elf].y) {
+            console.log(this.elf.x)
+            console.log(elves[elf].elf.x)
+            if (elves[elf] != this && this.elf.x === elves[elf].elf.x && this.elf.y === elves[elf].elf.y) {
               this.gotoStation(this.prevStation)
               return
             }
@@ -105,8 +107,16 @@ window.onload = function() {
           stations[3].anchor.setTo(0.5,0.5)
           stations[3].scale.setTo(2,2)
 
+
+          //
+          // elves[1] = new Elf(1)
+          // elves[2] = new Elf(2);
+          // elves[1].gotoStation(1)
+          // elves[2].gotoStation(1)
           airconsole = new AirConsole();
-              airconsole.onReady = function() { };
+              airconsole.onReady = function() {
+
+              };
                 airconsole.onConnect = function(device_id) {
                   console.log(device_id)
                   elves[device_id] = new Elf(device_id)
@@ -124,6 +134,7 @@ window.onload = function() {
                   }
                 }
               }
+
       }
       function update() {
         for (elf in elves) {
