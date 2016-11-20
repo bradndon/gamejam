@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.0.6")
+      console.log("version 0.0.0.0.0.0.7")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -32,14 +32,14 @@ window.onload = function() {
         var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
         this.inventory.item = ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)]
         var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-        // airconsole.message(this.device_id, message)
+        airconsole.message(this.device_id, message)
       }
 
       Elf.prototype.getNewColor = function() {
         var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
         this.inventory.color = COLORS[color]
         var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-        // airconsole.message(this.device_id, message)
+        airconsole.message(this.device_id, message)
       }
 
       Elf.prototype.gotoStation = function(station) {
@@ -81,7 +81,7 @@ window.onload = function() {
             }
           }
 
-          // airconsole.message(this.device_id, {action: "MOVE_DONE", station_items: stations[this.station].items})
+          airconsole.message(this.device_id, {action: "MOVE_DONE", station_items: stations[this.station].items})
           this.elf.animations.stop()
           this.elf.frame = 0
           this.traveling = false;
@@ -136,10 +136,10 @@ window.onload = function() {
           stations.push(new Station(500,500))
           stations.push(new Station(500,300))
 
-          // elves[1] = new Elf(1, "red")
-          // elves[2] = new Elf(2, "green");
-          // elves[1].gotoStation(1)
-          // elves[2].gotoStation(1)
+          elves[1] = new Elf(1, "red")
+          elves[2] = new Elf(2, "green");
+          elves[1].gotoStation(1)
+          elves[2].gotoStation(1)
           // console.log(elves[2].inventory)
           // stations[elves[2].station].addItem(elves[2].inventory.item)
           // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
