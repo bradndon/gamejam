@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.0.7")
+      console.log("version 0.0.0.0.0.0.9")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -17,7 +17,7 @@ window.onload = function() {
         this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
         this.elf.anchor.setTo(0.5, 0.5);
         this.elf.animations.add('walk', [0,1], 10, true)
-
+        this.elf.animations.add('work', [2,3], 10, true)
         this.goalX = this.elf.x
         this.goalY = this.elf.y
         game.physics.enable(this.elf, Phaser.Physics.ARCADE);
@@ -26,7 +26,7 @@ window.onload = function() {
         var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
         this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
         var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-        // airconsole.message(this.device_id, message)
+        airconsole.message(this.device_id, message)
       }
       Elf.prototype.getNewItem = function() {
         var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
@@ -116,7 +116,6 @@ window.onload = function() {
 
       function preload () {
 
-        // game.load.image('elf', require('./assets/redelf.png'));
         game.load.spritesheet('redelf', require('./assets/redelf.png'), 128, 128)
         game.load.spritesheet('greenelf', require('./assets/greenelf.png'), 128, 128)
         game.load.spritesheet('blueelf', require('./assets/blueelf.png'), 128, 128)
@@ -136,10 +135,10 @@ window.onload = function() {
           stations.push(new Station(500,500))
           stations.push(new Station(500,300))
 
-          elves[1] = new Elf(1, "red")
-          elves[2] = new Elf(2, "green");
-          elves[1].gotoStation(1)
-          elves[2].gotoStation(1)
+          // elves[1] = new Elf(1, "red")
+          // elves[2] = new Elf(2, "green");
+          // elves[1].gotoStation(1)
+          // elves[2].gotoStation(1)
           // console.log(elves[2].inventory)
           // stations[elves[2].station].addItem(elves[2].inventory.item)
           // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
@@ -160,6 +159,10 @@ window.onload = function() {
                   airconsole.message(airconsole.convertPlayerNumberToDeviceId(1), {action: "SET_COLOR", color:"#00ff00"})
                   airconsole.message(airconsole.convertPlayerNumberToDeviceId(2), {action: "SET_COLOR", color:"#0000ff"})
                 };
+                airconsole.onDisconnect = function(device_id) {
+                  elves[device_id].elf.destroy()
+                  elves[device_id] = null
+                }
               airconsole.onMessage = function(device_id, data) {
                 console.log(data)
                 console.log(device_id)

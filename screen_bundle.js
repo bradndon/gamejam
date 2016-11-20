@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.0.7")
+	      console.log("version 0.0.0.0.0.0.9")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -70,7 +70,7 @@
 	        this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
 	        this.elf.anchor.setTo(0.5, 0.5);
 	        this.elf.animations.add('walk', [0,1], 10, true)
-
+	        this.elf.animations.add('work', [2,3], 10, true)
 	        this.goalX = this.elf.x
 	        this.goalY = this.elf.y
 	        game.physics.enable(this.elf, Phaser.Physics.ARCADE);
@@ -169,7 +169,6 @@
 
 	      function preload () {
 
-	        // game.load.image('elf', require('./assets/redelf.png'));
 	        game.load.spritesheet('redelf', __webpack_require__(7), 128, 128)
 	        game.load.spritesheet('greenelf', __webpack_require__(8), 128, 128)
 	        game.load.spritesheet('blueelf', __webpack_require__(9), 128, 128)
@@ -213,6 +212,10 @@
 	                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(1), {action: "SET_COLOR", color:"#00ff00"})
 	                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(2), {action: "SET_COLOR", color:"#0000ff"})
 	                };
+	                airconsole.onDisconnect = function(device_id) {
+	                  elves[device_id].elf.destroy()
+	                  elves[device_id] = null
+	                }
 	              airconsole.onMessage = function(device_id, data) {
 	                console.log(data)
 	                console.log(device_id)
@@ -104736,19 +104739,19 @@
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "393abcfdf685ee417bb0246459da18fa.png";
+	module.exports = __webpack_require__.p + "a7e86d2a014194b1ddd7fa7dd6b793f2.png";
 
 /***/ },
 /* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "48cdb30095ec69ddec342aad4ffb5d25.png";
+	module.exports = __webpack_require__.p + "001ce24b731338efabaefd4128a09302.png";
 
 /***/ },
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "93e42a87189e4afc0980184693dfe34f.png";
+	module.exports = __webpack_require__.p + "c2c5d493c74736ed9f13f8fdaf8cea86.png";
 
 /***/ },
 /* 10 */

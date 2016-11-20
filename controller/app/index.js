@@ -17,17 +17,33 @@ function init() {
     if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
       document.getElementById("moveButtonsView").style.display = "block";
       if (data.station_items.items != undefined) {
-        document.getElementById("workstation").innerHTML = data.station_items.items
+        for (item in data.station_items.items) {
+          if (item.includes("head")) {
+            document.getElementById("headimage").src = item + ".png"
+          } else if (item.includes("body")) {
+            document.getElementById("bodyimage").src = item + ".png"
+          } else {
+            document.getElementById("legsimage").src = item + ".png"
+          }
+        }
       }
       if (data.station_items.color != undefined) {
-        document.getElementById("workstation").innerHTML += data.station_items.color
+        // document.getElementById("workstation").innerHTML += data.station_items.color
       }
     } else if (data.action == "STATION_UPDATE") {
       if (data.station_items.items != undefined) {
-        document.getElementById("workstation").innerHTML = data.station_items.items
+        for (item in data.station_items.items) {
+          if (item.includes("head")) {
+            document.getElementById("headimage").src = item + ".png"
+          } else if (item.includes("body")) {
+            document.getElementById("bodyimage").src = item + ".png"
+          } else {
+            document.getElementById("legsimage").src = item + ".png"
+          }
+        }
       }
       if (data.station_items.color != undefined) {
-        document.getElementById("workstation").innerHTML += data.station_items.color
+        // document.getElementById("workstation").innerHTML += data.station_items.color
       }
     } else if (data.action == "INVENTORY_UPDATE") {
       // document.getElementById("inventory1").innerHTML = data.item
