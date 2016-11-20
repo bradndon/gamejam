@@ -71,7 +71,8 @@ window.onload = function() {
 
         if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
           for (elf in elves) {
-            if (elf != this && this.elf.x === elf.x && this.elf.y === elf.y) {
+            console.log("HERE")
+            if (elf != this && this.elf.x === elves[elf].x && this.elf.y === elves[elf].y) {
               this.gotoStation(prevStation)
               return
             }
