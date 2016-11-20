@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.1.5")
+      console.log("version 0.0.0.0.0.1.6")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -175,11 +175,11 @@ window.onload = function() {
                     elf.getNewItem()
                     for (item in stations[elf.station].items) {
                       if (item.indexOf("head") !== -1) {
-                        document.getElementById("headimage").src = item + ".png"
+                        console.log("head")
                       } else if (item.indexOf("body") !== -1) {
-                        document.getElementById("bodyimage").src = item + ".png"
+                        console.log("body")
                       } else {
-                        document.getElementById("legsimage").src = item + ".png"
+                        console.log("legs")
                       }
                     }
                     console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items})
