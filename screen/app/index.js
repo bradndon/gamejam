@@ -245,6 +245,8 @@ window.onload = function() {
         game.load.spritesheet('greenelf', require('./assets/greenelf.png'), 128, 128)
         game.load.spritesheet('blueelf', require('./assets/blueelf.png'), 128, 128)
         game.load.spritesheet('snowflake', require('./assets/Snowflake.png'), 64, 64)
+        game.load.spritesheet('intro', require('./assets/intro.png'), 800, 600)
+
         game.load.image('horsehead', require('../../horsehead.png'))
         game.load.image('horsebody', require('../../horsebody.png'))
         game.load.image('horselegs', require('../../horselegs.png'))
@@ -262,12 +264,16 @@ window.onload = function() {
       }
       var stations;
       var elves;
+      var intro
       function create () {
         var audio = game.add.audio('backmusic')
         audio.play()
         audio.loopFull()
         game.stage.smoothed = false
         game.add.sprite(0,0, 'background')
+        intro = game.add.sprite(0,0,'intro')
+        intro.animations.add('wobble', [0,1,2,3], 10, true)
+        intro.animations.play('wobble')
           elves = {}
 
           stations = []
@@ -326,6 +332,7 @@ window.onload = function() {
                 }
                 gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
                 waiting.setText("")
+                intro.destroy()
               } else {
                 waiting.setText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players")
               }
@@ -377,7 +384,7 @@ window.onload = function() {
           }
           text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
           text.anchor.setTo(1, 0);
-          waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
+          waiting = game.add.text(game.world.centerX, game.world.centerY - 90, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
           waiting.anchor.setTo(0.5, 0.5)
       }
       function update() {

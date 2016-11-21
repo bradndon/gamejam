@@ -298,29 +298,35 @@
 	        game.load.spritesheet('greenelf', __webpack_require__(8), 128, 128)
 	        game.load.spritesheet('blueelf', __webpack_require__(9), 128, 128)
 	        game.load.spritesheet('snowflake', __webpack_require__(10), 64, 64)
-	        game.load.image('horsehead', __webpack_require__(11))
-	        game.load.image('horsebody', __webpack_require__(12))
-	        game.load.image('horselegs', __webpack_require__(13))
-	        game.load.image('manhead', __webpack_require__(14))
-	        game.load.image('manbody', __webpack_require__(15))
-	        game.load.image('manlegs', __webpack_require__(16))
-	        game.load.image('bearhead', __webpack_require__(17))
-	        game.load.image('bearbody', __webpack_require__(18))
-	        game.load.image('station', __webpack_require__(19));
-	        game.load.image('man', __webpack_require__(20))
-	        game.load.image('bear', __webpack_require__(21))
-	        game.load.image('horse', __webpack_require__(22))
-	        game.load.image('background', __webpack_require__(23))
+	        game.load.spritesheet('intro', __webpack_require__(11), 800, 600)
+
+	        game.load.image('horsehead', __webpack_require__(12))
+	        game.load.image('horsebody', __webpack_require__(13))
+	        game.load.image('horselegs', __webpack_require__(14))
+	        game.load.image('manhead', __webpack_require__(15))
+	        game.load.image('manbody', __webpack_require__(16))
+	        game.load.image('manlegs', __webpack_require__(17))
+	        game.load.image('bearhead', __webpack_require__(18))
+	        game.load.image('bearbody', __webpack_require__(19))
+	        game.load.image('station', __webpack_require__(20));
+	        game.load.image('man', __webpack_require__(21))
+	        game.load.image('bear', __webpack_require__(22))
+	        game.load.image('horse', __webpack_require__(23))
+	        game.load.image('background', __webpack_require__(24))
 	        game.load.audio('backmusic', './music.mp3')
 	      }
 	      var stations;
 	      var elves;
+	      var intro
 	      function create () {
 	        var audio = game.add.audio('backmusic')
 	        audio.play()
 	        audio.loopFull()
 	        game.stage.smoothed = false
 	        game.add.sprite(0,0, 'background')
+	        intro = game.add.sprite(0,0,'intro')
+	        intro.animations.add('wobble', [0,1,2,3], 10, true)
+	        intro.animations.play('wobble')
 	          elves = {}
 
 	          stations = []
@@ -379,6 +385,7 @@
 	                }
 	                gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 	                waiting.setText("")
+	                intro.destroy()
 	              } else {
 	                waiting.setText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players")
 	              }
@@ -430,7 +437,7 @@
 	          }
 	          text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
 	          text.anchor.setTo(1, 0);
-	          waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
+	          waiting = game.add.text(game.world.centerX, game.world.centerY - 90, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
 	          waiting.anchor.setTo(0.5, 0.5)
 	      }
 	      function update() {
@@ -104976,76 +104983,82 @@
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "50378f3c0b0e59c1158a10ce77aed076.png";
+	module.exports = __webpack_require__.p + "364916bcc60a72070025e9160cdf6a13.png";
 
 /***/ },
 /* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "b252e48d0a7bfe36ffb935a46bfa0564.png";
+	module.exports = __webpack_require__.p + "50378f3c0b0e59c1158a10ce77aed076.png";
 
 /***/ },
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "c9aa387ed29f6140a8b945fc50102d4f.png";
+	module.exports = __webpack_require__.p + "b252e48d0a7bfe36ffb935a46bfa0564.png";
 
 /***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "10c9cc1def17a7a4e82738f67c6b2c05.png";
+	module.exports = __webpack_require__.p + "c9aa387ed29f6140a8b945fc50102d4f.png";
 
 /***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "0a6a6dfd5d3dbe45bd88cc98fb4f036e.png";
+	module.exports = __webpack_require__.p + "10c9cc1def17a7a4e82738f67c6b2c05.png";
 
 /***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "f5a74f85d7ab1262dbd27f0a96ea7e99.png";
+	module.exports = __webpack_require__.p + "0a6a6dfd5d3dbe45bd88cc98fb4f036e.png";
 
 /***/ },
 /* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "f86900745c0b834d94ac0a468c386794.png";
+	module.exports = __webpack_require__.p + "f5a74f85d7ab1262dbd27f0a96ea7e99.png";
 
 /***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "9a8b04532445877aa6876397d7286b2f.png";
+	module.exports = __webpack_require__.p + "f86900745c0b834d94ac0a468c386794.png";
 
 /***/ },
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "5acef243eb1cf08c0be637f0ee598d56.png";
+	module.exports = __webpack_require__.p + "9a8b04532445877aa6876397d7286b2f.png";
 
 /***/ },
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "fab9f0cf60501e332a950b149f3f06d3.png";
+	module.exports = __webpack_require__.p + "5acef243eb1cf08c0be637f0ee598d56.png";
 
 /***/ },
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "a54888ef5bd0a7d17ad4190c1e5f3bfa.png";
+	module.exports = __webpack_require__.p + "fab9f0cf60501e332a950b149f3f06d3.png";
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "84401a38e755b8eec5735942a9433ef6.png";
+	module.exports = __webpack_require__.p + "a54888ef5bd0a7d17ad4190c1e5f3bfa.png";
 
 /***/ },
 /* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "84401a38e755b8eec5735942a9433ef6.png";
+
+/***/ },
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "016c55ec0b34630beb2b004e6cb68573.png";
