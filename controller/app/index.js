@@ -100,8 +100,9 @@ window.onload = function() {
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
   });
   document.getElementById("inventory1").addEventListener("click", function() {
-    if (stationitems.length < 3) {
-      console.log("inven1")
+    console.log("inven1")
+    console.log(stationitems.items)
+    if (stationitems.items.length < 3) {
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
     }
 
