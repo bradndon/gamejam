@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.1.0.2")
+      console.log("version 0.0.0.0.1.0.5")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -14,6 +14,7 @@ window.onload = function() {
       var airconsole;
       var gameTimer;
       var counter = 60
+      var waiting
       var Elf = function(device_id, color) {
         this.device_id = device_id
         this.station = 3
@@ -290,6 +291,11 @@ window.onload = function() {
                         device_id = airconsole.convertPlayerNumberToDeviceId(i)
                         elves[device_id] = new Elf(device_id, colors[i])
                       }
+                      gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+                      waiting.setText("")
+                    } else {
+                      waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for ' + 3 - connected_controllers + " more players", { font: "108 Verdana", fill: "#ffffff", align: "center" });
+
                     }
                   }
                 };
@@ -331,9 +337,9 @@ window.onload = function() {
                   }
                 }
               }
-              text = game.add.text(game.world.width - 10, 0, '10', { font: "32px Verdana", fill: "#ffffff", align: "center" });
+              text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
           text.anchor.setTo(1, 0);
-          gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+
 
       }
       function update() {
