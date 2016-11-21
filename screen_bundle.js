@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.4.0.0")
+	      console.log("version 0.0.0.0.5.0.0")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -351,7 +351,7 @@
 	          // stations[2].items = {items: ["bearbody"], color: ""}
 	          // stations[2].addItem("bearhead")
 	          // stations[2].drawItems();
-	          stations.push(new Station(500,300))
+	          // stations.push(new Station(500,300))
 	          intro = game.add.sprite(0,0,'intro')
 	          intro.animations.add('wobble', [0,1,2,3], 10, true)
 	          intro.animations.play('wobble')
@@ -385,9 +385,9 @@
 	            var connected_controllers = airconsole.getControllerDeviceIds();
 	            if (active_players.length == 0) {
 	              if (connected_controllers.length >= 3) {
-	                airconsole.setActivePlayers(3)
+	                airconsole.setActivePlayers(2)
 	                var colors = ["red", "green", "blue"]
-	                for (var i = 0; i < 3; i++) {
+	                for (var i = 0; i < 2; i++) {
 	                  device_id = airconsole.convertPlayerNumberToDeviceId(i)
 	                  elves[device_id] = new Elf(device_id, colors[i])
 	                }
