@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.1.0.8")
+      console.log("version 0.0.0.0.2.0.0")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -28,6 +28,7 @@ window.onload = function() {
         this.goalY = this.elf.y
         game.physics.enable(this.elf, Phaser.Physics.ARCADE);
         this.traveling = false;
+        this.working = false;
         var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
         var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
         this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
@@ -41,6 +42,21 @@ window.onload = function() {
         this.inventory.item = ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)]
         var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
         airconsole.message(this.device_id, message)
+      }
+
+      Elf.prototype.startWorking = function() {
+        this.elf.animations.play('work');
+        elf.working = true;
+        var timer = game.time.events.add(Phaser.Timer.SECOND, function() {
+          game.time.events.remove(timer)
+          elf.working = false;
+          this.elf.animations.stop()
+          this.elf.frame = 0
+          stations[elf.station].addItem(elf.inventory.item)
+          console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items.items})
+          airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+        }, this);
+
       }
 
       Elf.prototype.getNewColor = function() {
@@ -319,22 +335,10 @@ window.onload = function() {
                   elf.gotoStation(data.station)
                 } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
                   stations[elf.station].reset();
+                  airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
                 } else if (elves[device_id] != null && data.action == "USE_ITEM") {
-                  if (data.item == "item") {
-                    stations[elf.station].addItem(elf.inventory.item)
-                    elf.getNewItem()
-                    for (item in stations[elf.station].items) {
-                      console.log(item)
-                      if (item.indexOf("head") !== -1) {
-                        console.log("head")
-                      } else if (item.indexOf("body") !== -1) {
-                        console.log("body")
-                      } else {
-                        console.log("legs")
-                      }
-                    }
-                    console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items.items})
-                    airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+                  if (data.item == "item" && !elf.working) {
+                    elf.startWorking()
                   } else {
                     if (stations[elf.station].addColor(elf.inventory.color)) {
                       elf.getNewColor()
