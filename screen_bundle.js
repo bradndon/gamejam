@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.2.0.3")
+	      console.log("version 0.0.0.0.2.0.5")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -266,7 +266,7 @@
 	          this.items = {}
 	          this.complete = false;
 	          this.type = undefined
-	          for (var i = 0; i < 10; i ++) {
+	          for (var i = 0; i < 50; i ++) {
 	            addSnowflake()
 	          }
 	          // var newItem = game.add.sprite(this.x, this.y - 20, this.type)

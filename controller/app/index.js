@@ -51,6 +51,7 @@ function init() {
       }
     } else if (data.action == "INVENTORY_UPDATE") {
       // document.getElementById("inventory1").innerHTML = data.item
+      document.getElementById("stopper").style.display = "none"
       document.getElementById("inventoryitemimage").src = data.item + ".png"
       document.getElementById("inventory2").innerHTML = data.color
       // document.getElementById("inventory2").style.background = data.color
@@ -106,6 +107,7 @@ window.onload = function() {
     console.log("inven1")
     console.log(stationitems.items)
     if (stationitems.items === undefined || stationitems.items.length < 3) {
+      document.getElementById("stopper").style.display = "block"
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
     }
 
