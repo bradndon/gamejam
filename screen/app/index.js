@@ -4,17 +4,19 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.4.5")
+      console.log("version 0.0.0.0.0.4.8")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
       var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
       var COLOR_NAMES = ["red", "green", "blue"]
       var completed = []
+      var airconsole
       var Elf = function(device_id, color) {
         this.device_id = device_id
         this.station = 3
         this.prevStation = 3
+        this.speed = 250
         this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
         this.elf.anchor.setTo(0.5, 0.5);
         this.elf.animations.add('walk', [0,1], 10, true)
@@ -27,7 +29,9 @@ window.onload = function() {
         var color = COLOR_NAMES[Math.floor(Math.random() * COLOR_NAMES.length)]
         this.inventory = {item: ITEMS[item][Math.floor(Math.random() * ITEMS[item].length)], color: COLORS[color]}
         var message = {action: "INVENTORY_UPDATE", item: this.inventory.item, color: this.inventory.color}
-        airconsole.message(this.device_id, message)
+        if (airconsole) {
+          airconsole.message(this.device_id, message)
+        }
       }
       Elf.prototype.getNewItem = function() {
         var item = ITEM_NAMES[Math.floor(Math.random() * ITEM_NAMES.length)]
@@ -59,19 +63,19 @@ window.onload = function() {
           this.elf.x = this.goalX
           this.elf.scale.x = 1
         }  else if (this.goalX < this.elf.x) {
-          this.elf.body.velocity.x = -150;
+          this.elf.body.velocity.x = -this.speed;
           this.elf.scale.x = 1
         } else if (this.goalX > this.elf.x) {
-          this.elf.body.velocity.x = 150;
+          this.elf.body.velocity.x = this.speed;
           this.elf.scale.x = -1
         }
         if (this.goalY - 5 < this.elf.y && this.goalY + 5 > this.elf.y) {
           this.elf.body.velocity.y = 0;
           this.elf.y = this.goalY
         } else if (this.goalY < this.elf.y) {
-          this.elf.body.velocity.y = -150;
+          this.elf.body.velocity.y = -this.speed;
         } else if (this.goalY > this.elf.y) {
-          this.elf.body.velocity.y = 150;
+          this.elf.body.velocity.y = this.speed;
         }
 
         if (this.elf.x === this.goalX && this.elf.y === this.goalY && this.traveling) {
@@ -103,7 +107,10 @@ window.onload = function() {
 
 
       Station.prototype.addItem = function(item) {
+        console.log("ADDING " + item)
         if (this.items.items === undefined) {
+          console.log("undefined  " + item)
+
           this.items.items = [item]
         } else {
           var items = this.items.items
@@ -161,6 +168,7 @@ window.onload = function() {
           this.itemsprites[i].destroy()
         }
         if (!this.complete) {
+          console.log("Not complete")
           var height = 20;
           for (var i = 0; i < this.items.items.length; i++) {
 
@@ -172,9 +180,11 @@ window.onload = function() {
             this.itemsprites.push(newItem)
           }
         } else {
-          completed.push(game.add.sprite(completed.length * 100, 20, this.type))
+          console.log("complete")
+
+          completed.push(game.add.sprite(completed.length * 64, 20, this.type))
           this.items = {}
-          this.completed = false;
+          this.complete = false;
           this.type = undefined
           // var newItem = game.add.sprite(this.x, this.y - 20, this.type)
           // newItem.anchor.setTo(0.5,0.75)
@@ -220,7 +230,7 @@ window.onload = function() {
           stations.push(new Station(150,300))
           // stations[0].items = {items: ["horselegs", "horsebody"], color: ""}
           // stations[0].addItem("horsehead")
-          // stations[0].drawItems();
+          // stations[0].addItem("manbody")
           stations.push(new Station(150,500))
           // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
           // stations[1].addItem("manhead")
@@ -231,10 +241,10 @@ window.onload = function() {
           // stations[2].drawItems();
           stations.push(new Station(500,300))
 
-          // elves[1] = new Elf(1, "red")
-          // elves[2] = new Elf(2, "green");
-          // elves[1].gotoStation(1)
-          // elves[2].gotoStation(1)
+          elves[1] = new Elf(1, "red")
+          elves[2] = new Elf(2, "green");
+          elves[1].gotoStation(1)
+          elves[2].gotoStation(1)
           // stations[  elves[2].station].addItem(  elves[2].inventory.item)
           //   elves[2].getNewItem()
           // for (item in stations[  elves[2].station].items.items) {
