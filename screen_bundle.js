@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.1.0.1")
+	      console.log("version 0.0.0.0.1.0.2")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -66,7 +66,7 @@
 	      var completed = []
 	      var airconsole;
 	      var gameTimer;
-	      var counter = 10
+	      var counter = 60
 	      var Elf = function(device_id, color) {
 	        this.device_id = device_id
 	        this.station = 3
@@ -307,9 +307,9 @@
 	          // stations[2].drawItems();
 	          stations.push(new Station(500,300))
 
-	          elves[1] = new Elf(1, "red")
-	          elves[2] = new Elf(2, "green");
-	          elves[1].gotoStation(1)
+	          // elves[1] = new Elf(1, "red")
+	          // elves[2] = new Elf(2, "green");
+	          // elves[1].gotoStation(1)
 	          // elves[2].gotoStation(1)
 	          // stations[  elves[2].station].addItem(  elves[2].inventory.item)
 	          //   elves[2].getNewItem()
@@ -333,12 +333,18 @@
 	              airconsole.onReady = function() {
 	              };
 	                airconsole.onConnect = function(device_id) {
-	                  airconsole.setActivePlayers(3)
-
-	                  var colors = ["red", "green", "blue"]
-	                  elves[device_id] = new Elf(device_id, colors[airconsole.convertDeviceIdToPlayerNumber(device_id)])
-	                  console.log(airconsole.convertPlayerNumberToDeviceId(0))
-	                  console.log(airconsole.convertDeviceIdToPlayerNumber(device_id))
+	                  var active_players = airconsole.getActivePlayerDeviceIds();
+	                  var connected_controllers = airconsole.getControllerDeviceIds();
+	                  if (active_players.length == 0) {
+	                    if (connected_controllers.length >= 3) {
+	                      airconsole.setActivePlayers(3)
+	                      var colors = ["red", "green", "blue"]
+	                      for (var i = 0; i < 3; i++) {
+	                        device_id = airconsole.convertPlayerNumberToDeviceId(i)
+	                        elves[device_id] = new Elf(device_id, colors[i])
+	                      }
+	                    }
+	                  }
 	                };
 	                airconsole.onDisconnect = function(device_id) {
 	                  elves[device_id].elf.destroy()
