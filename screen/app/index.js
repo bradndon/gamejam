@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.5.0.0")
+      console.log("version 0.0.0.0.5.0.1")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -294,11 +294,11 @@ window.onload = function() {
           // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
           // stations[1].addItem("manhead")
           // stations[1].drawItems();
-          stations.push(new Station(500,500))
+          // stations.push(new Station(500,500))
           // stations[2].items = {items: ["bearbody"], color: ""}
           // stations[2].addItem("bearhead")
           // stations[2].drawItems();
-          // stations.push(new Station(500,300))
+          stations.push(new Station(500,300))
           intro = game.add.sprite(0,0,'intro')
           intro.animations.add('wobble', [0,1,2,3], 10, true)
           intro.animations.play('wobble')
