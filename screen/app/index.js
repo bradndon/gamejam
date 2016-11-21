@@ -22,7 +22,7 @@ window.onload = function() {
         this.speed = 250
         this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
         this.elf.anchor.setTo(0.5, 0.5);
-        this.elf.animations.add('walk', [0,1], 10, true)
+        this.ations.add('walk', [0,1], 10, true)
         this.elf.animations.add('work', [2,3], 10, true)
         this.goalX = this.elf.x
         this.goalY = this.elf.y
@@ -350,13 +350,13 @@ window.onload = function() {
             if (elf != null && data.action == "MOVE_STATION") {
               elf.gotoStation(data.station)
             } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
-              elf.animations.play('work');
+              elf.elf.animations.play('work');
               elf.working = true;
               var timer = game.time.events.add(Phaser.Timer.SECOND*2, function() {
                 game.time.events.remove(timer)
                 elf.working = false;
-                elf.animations.stop()
-                elf.frame = 0
+                elf.elf.animations.stop()
+                elf.elf.frame = 0
                 stations[elf.station].reset();
                 airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
               }, this);
