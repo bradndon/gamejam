@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.1.0.6")
+      console.log("version 0.0.0.0.1.0.7")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -294,14 +294,24 @@ window.onload = function() {
                       gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
                       waiting.setText("")
                     } else {
-                      waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for ' + (3 - connected_controllers.length) + " more players", { font: "64px Verdana", fill: "#ffffff", align: "center" });
+                      waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for ' + (3 - connected_controllers.length) + "\nmore players", { font: "64px Verdana", fill: "#ffffff", align: "center" });
                       waiting.anchor.setTo(0.5, 0.5)
                     }
                   }
                 };
                 airconsole.onDisconnect = function(device_id) {
-                  elves[device_id].elf.destroy()
-                  elves[device_id] = null
+                  var active_players = airconsole.getActivePlayerDeviceIds();
+                  var connected_controllers = airconsole.getControllerDeviceIds();
+                  if (active_players.length == 0) {
+                    if (connected_controllers.length >= 3) {
+                      waitingsetText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players");
+                      waiting.anchor.setTo(0.5, 0.5)
+                    }
+                  } else {
+                    elves[device_id].elf.destroy()
+                    elves[device_id] = null
+                  }
+
                 }
               airconsole.onMessage = function(device_id, data) {
                 console.log(data)
