@@ -22,11 +22,11 @@ window.onload = function() {
         this.speed = 250
 
         if (color === "red") {
-          this.elf = game.add.sprite(game.world.centerX - 64, game.world.centerY, color + 'elf');
+          this.elf = game.add.sprite(game.world.centerX - 120, game.world.centerY + 50, color + 'elf');
         } else if (color === "blue") {
-          this.elf = game.add.sprite(game.world.centerX, game.world.centerY, color + 'elf');
+          this.elf = game.add.sprite(game.world.centerX - 56, game.world.centerY + 50, color + 'elf');
         } else {
-          this.elf = game.add.sprite(game.world.centerX + 64, game.world.centerY, color + 'elf');
+          this.elf = game.add.sprite(game.world.centerX + 8, game.world.centerY + 50, color + 'elf');
 
         }
         this.elf.anchor.setTo(0.5, 0.5);
