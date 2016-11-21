@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.2.0.6")
+      console.log("version 0.0.0.0.3.0.6")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -350,8 +350,17 @@ window.onload = function() {
             if (elf != null && data.action == "MOVE_STATION") {
               elf.gotoStation(data.station)
             } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
-              stations[elf.station].reset();
-              airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+              elf.animations.play('work');
+              elf.working = true;
+              var timer = game.time.events.add(Phaser.Timer.SECOND*2, function() {
+                game.time.events.remove(timer)
+                elf.working = false;
+                elf.animations.stop()
+                elf.frame = 0
+                stations[elf.station].reset();
+                airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+              }, this);
+
             } else if (elves[device_id] != null && data.action == "USE_ITEM") {
               if (data.item == "item" && !elf.working) {
                 elf.startWorking()

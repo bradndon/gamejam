@@ -72,7 +72,9 @@
 	  airconsole.onMessage = function(device_id, data) {
 	    console.log(data)
 	    if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
-	      document.getElementById("moveButtonsView").style.display = "block";
+	      document.getElementById("stopper").style.display = "none"
+
+
 	      stationitems = data.station_items
 	      if (data.station_items.items != undefined) {
 	        for (item in data.station_items.items.reverse()) {
@@ -105,11 +107,12 @@
 	    } else if (data.action == "INVENTORY_UPDATE") {
 	      // document.getElementById("inventory1").innerHTML = data.item
 	      document.getElementById("stopper").style.display = "none"
+
 	      document.getElementById("inventoryitemimage").src = data.item + ".png"
 	      document.getElementById("inventory2").innerHTML = data.color
 	      // document.getElementById("inventory2").style.background = data.color
-	    } else if (data.action == "SET_COLOR") {
-	      document.getElementById("topbar").style.background = data.color
+	    } else if (data.action == "TRASH_FINISH") {
+	      document.getElementById("stopper").style.display = "none"
 	    }
 	  }
 	};
@@ -133,26 +136,25 @@
 		img8.src = "./manlegs.png";
 	  init();
 	  document.getElementById("button0").addEventListener("click", function() {
-	    document.getElementById("moveButtonsView").style.display = "none";
 	    document.getElementById("workstationinner").innerHTML = "";
+	    document.getElementById("stopper").style.display = "block"
 
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 0})
 	  });
 	  document.getElementById("button1").addEventListener("click", function() {
-	    document.getElementById("moveButtonsView").style.display = "none";
 	    document.getElementById("workstationinner").innerHTML = "";
+	    document.getElementById("stopper").style.display = "block"
 
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 1})
 	  });
 	  document.getElementById("button2").addEventListener("click", function() {
-	    document.getElementById("moveButtonsView").style.display = "none";
 	    document.getElementById("workstationinner").innerHTML = "";
-
+	    document.getElementById("stopper").style.display = "block"
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 2})
 	  });
 	  document.getElementById("button3").addEventListener("click", function() {
-	    document.getElementById("moveButtonsView").style.display = "none";
 	    document.getElementById("workstationinner").innerHTML = "";
+	    document.getElementById("stopper").style.display = "block"
 
 	    airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
 	  });
@@ -161,18 +163,20 @@
 	    console.log(stationitems.items)
 	    if (stationitems.items === undefined || stationitems.items.length < 3) {
 	      document.getElementById("stopper").style.display = "block"
+
 	      airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
 	    }
 
 	  });
-	  document.getElementById("inventory2").addEventListener("click", function() {
-	    console.log("inven2")
-
-	    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
-	  });
+	  // document.getElementById("inventory2").addEventListener("click", function() {
+	  //   console.log("inven2")
+	  //
+	  //   airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
+	  // });
 
 	  document.getElementById("trashButton").addEventListener("click", function() {
 	    console.log("trash")
+	    document.getElementById("stopper").style.display = "block"
 	    airconsole.message(AirConsole.SCREEN, {action: "TRASH_STATION"})
 	  });
 	};
