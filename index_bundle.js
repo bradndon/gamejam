@@ -64,7 +64,10 @@
 	   * Checks if this device is part of the active game.
 	   */
 	  airconsole.onActivePlayersChange = function(player) {
-
+	    var colors = ["red", "green", "blue"]
+	    if (player !== undefined) {
+	      document.getElementById("topbar").style.background = colors[player]
+	    }
 	  };
 	  airconsole.onMessage = function(device_id, data) {
 	    console.log(data)

@@ -4,14 +4,16 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.1.0.0")
+      console.log("version 0.0.0.0.1.0.1")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
       var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
       var COLOR_NAMES = ["red", "green", "blue"]
       var completed = []
-      var airconsole
+      var airconsole;
+      var gameTimer;
+      var counter = 10
       var Elf = function(device_id, color) {
         this.device_id = device_id
         this.station = 3
@@ -252,9 +254,9 @@ window.onload = function() {
           // stations[2].drawItems();
           stations.push(new Station(500,300))
 
-          // elves[1] = new Elf(1, "red")
-          // elves[2] = new Elf(2, "green");
-          // elves[1].gotoStation(1)
+          elves[1] = new Elf(1, "red")
+          elves[2] = new Elf(2, "green");
+          elves[1].gotoStation(1)
           // elves[2].gotoStation(1)
           // stations[  elves[2].station].addItem(  elves[2].inventory.item)
           //   elves[2].getNewItem()
@@ -284,9 +286,6 @@ window.onload = function() {
                   elves[device_id] = new Elf(device_id, colors[airconsole.convertDeviceIdToPlayerNumber(device_id)])
                   console.log(airconsole.convertPlayerNumberToDeviceId(0))
                   console.log(airconsole.convertDeviceIdToPlayerNumber(device_id))
-                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(0), {action: "SET_COLOR", color:"#ff0000"})
-                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(1), {action: "SET_COLOR", color:"#00ff00"})
-                  airconsole.message(airconsole.convertPlayerNumberToDeviceId(2), {action: "SET_COLOR", color:"#0000ff"})
                 };
                 airconsole.onDisconnect = function(device_id) {
                   elves[device_id].elf.destroy()
@@ -326,11 +325,34 @@ window.onload = function() {
                   }
                 }
               }
+              text = game.add.text(game.world.width - 10, 0, '10', { font: "32px Verdana", fill: "#ffffff", align: "center" });
+          text.anchor.setTo(1, 0);
+          gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 
       }
       function update() {
         for (elf in elves) {
           elves[elf].update();
+        }
+
+      }
+
+      function updateCounter() {
+        counter--;
+        text.setText(counter);
+        if (counter < 0) {
+          text.setText(0);
+          game.time.events.remove(gameTimer)
+          gameFinish()
+        }
+      }
+
+      function gameFinish() {
+        for (elf in elves) {
+          airconsole.broadcast(elves[elf].device_id, {action: "GAME_OVER", score: 75})
+          elves[elf].elf.destroy()
+          elves[elf] = null
+
         }
       }
 
