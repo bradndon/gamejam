@@ -332,9 +332,7 @@
 	        audio.loopFull()
 	        game.stage.smoothed = false
 	        game.add.sprite(0,0, 'background')
-	        intro = game.add.sprite(0,0,'intro')
-	        intro.animations.add('wobble', [0,1,2,3], 10, true)
-	        intro.animations.play('wobble')
+
 	          elves = {}
 
 	          stations = []
@@ -354,7 +352,9 @@
 	          // stations[2].addItem("bearhead")
 	          // stations[2].drawItems();
 	          stations.push(new Station(500,300))
-
+	          intro = game.add.sprite(0,0,'intro')
+	          intro.animations.add('wobble', [0,1,2,3], 10, true)
+	          intro.animations.play('wobble')
 	          // elves[1] = new Elf(1, "red")
 	          // elves[2] = new Elf(2, "green");
 	          // elves[1].gotoStation(1)
