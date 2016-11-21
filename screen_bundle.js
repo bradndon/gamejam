@@ -66,7 +66,7 @@
 	      var completed = []
 	      var airconsole;
 	      var gameTimer;
-	      var counter = 60
+	      var counter = 120
 	      var waiting
 	      var Elf = function(device_id, color) {
 	        this.device_id = device_id
@@ -299,10 +299,13 @@
 	        game.load.image('bear', __webpack_require__(21))
 	        game.load.image('horse', __webpack_require__(22))
 	        game.load.image('background', __webpack_require__(23))
+	        game.load.audio('backmusic', './music.mp3')
 	      }
 	      var stations;
 	      var elves;
 	      function create () {
+	        var audio = game.add.audio('backmusic')
+	        audio.play()
 	        game.stage.smoothed = false
 	        game.add.sprite(0,0, 'background')
 	          elves = {}

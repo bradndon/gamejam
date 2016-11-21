@@ -13,7 +13,7 @@ window.onload = function() {
       var completed = []
       var airconsole;
       var gameTimer;
-      var counter = 60
+      var counter = 120
       var waiting
       var Elf = function(device_id, color) {
         this.device_id = device_id
@@ -246,10 +246,13 @@ window.onload = function() {
         game.load.image('bear', require('../../bear.png'))
         game.load.image('horse', require('../../horse.png'))
         game.load.image('background', require('./assets/Background.png'))
+        game.load.audio('backmusic', './music.mp3')
       }
       var stations;
       var elves;
       function create () {
+        var audio = game.add.audio('backmusic')
+        audio.play()
         game.stage.smoothed = false
         game.add.sprite(0,0, 'background')
           elves = {}
