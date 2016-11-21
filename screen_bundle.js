@@ -57,12 +57,13 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.4.0")
+	      console.log("version 0.0.0.0.0.4.2")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
 	      var COLORS = {"red": "#ff0000", "green": "#00ff00", "blue": "#0000bb"}
 	      var COLOR_NAMES = ["red", "green", "blue"]
+	      var completed = []
 	      var Elf = function(device_id, color) {
 	        this.device_id = device_id
 	        this.station = 3
@@ -153,6 +154,7 @@
 	        this.y = y
 	      }
 
+
 	      Station.prototype.addItem = function(item) {
 	        if (this.items.items === undefined) {
 	          this.items.items = [item]
@@ -199,6 +201,7 @@
 	          }
 	          if (items.length == 2 && head && body && this.type === "bear") {
 	            this.complete = true;
+
 	          } else if (items.length === 3 && head && body && legs) {
 	            this.complete = true;
 	          }
@@ -222,9 +225,13 @@
 	            this.itemsprites.push(newItem)
 	          }
 	        } else {
-	          var newItem = game.add.sprite(this.x, this.y - 20, this.type)
-	          newItem.anchor.setTo(0.5,0.75)
-	          this.itemsprites.push(newItem)
+	          completed.push(game.add.sprite(completed.length * 100, 100, this.type))
+	          this.itmes = {}
+	          this.completed = false;
+	          this.type = undefined
+	          // var newItem = game.add.sprite(this.x, this.y - 20, this.type)
+	          // newItem.anchor.setTo(0.5,0.75)
+	          // this.itemsprites.push(newItem)
 	        }
 	      }
 
