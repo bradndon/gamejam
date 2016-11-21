@@ -20,7 +20,15 @@ window.onload = function() {
         this.station = 3
         this.prevStation = 3
         this.speed = 250
-        this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
+
+        if (color === "red") {
+          this.elf = game.add.sprite(game.world.centerX - 64, game.world.centerY, color + 'elf');
+        } else if (color === "blue") {
+          this.elf = game.add.sprite(game.world.centerX, game.world.centerY, color + 'elf');
+        } else {
+          this.elf = game.add.sprite(game.world.centerX + 64, game.world.centerY, color + 'elf');
+
+        }
         this.elf.anchor.setTo(0.5, 0.5);
         this.elf.animations.add('walk', [0,1], 10, true)
         this.elf.animations.add('work', [2,3], 10, true)
