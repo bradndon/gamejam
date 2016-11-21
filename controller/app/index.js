@@ -17,15 +17,14 @@ function init() {
     console.log(data)
     if (device_id == AirConsole.SCREEN && data.action == "MOVE_DONE") {
       document.getElementById("moveButtonsView").style.display = "block";
+      stationitems = data.station_items
       if (data.station_items.items != undefined) {
-        for (item in data.station_items.items) {
-          if (data.station_items.items[item].indexOf("head") !== -1) {
-            document.getElementById("headimage").src = data.station_items.items[item] + ".png"
-          } else if (data.station_items.items[item].indexOf("body") !== -1) {
-            document.getElementById("bodyimage").src = data.station_items.items[item] + ".png"
-          } else {
-            document.getElementById("legsimage").src = data.station_items.items[item] + ".png"
-          }
+        for (item in data.station_items.items.reverse()) {
+          data.station_items.items[item]
+          var elem = document.createElement("img");
+          elem.setAttribute("alt", "Flower");
+          elem.src = data.station_items.items[item] + ".png"
+          document.getElementById("workstationinner").appendChild(elem);
         }
       }
       if (data.station_items.color != undefined) {
@@ -33,8 +32,10 @@ function init() {
       }
     } else if (data.action == "STATION_UPDATE") {
       stationitems = data.station_items
+      document.getElementById("workstationinner").innerHTML = "";
+
       if (data.station_items.items != undefined) {
-        for (item in data.station_items.items) {
+        for (item in data.station_items.items.reverse()) {
           data.station_items.items[item]
           var elem = document.createElement("img");
           elem.setAttribute("alt", "Flower");
@@ -99,8 +100,10 @@ window.onload = function() {
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
   });
   document.getElementById("inventory1").addEventListener("click", function() {
-    console.log("inven1")
+    if (stationitems.length < 3) {
+      console.log("inven1")
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
+    }
 
   });
   document.getElementById("inventory2").addEventListener("click", function() {
