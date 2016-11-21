@@ -213,12 +213,24 @@ window.onload = function() {
           this.items = {}
           this.complete = false;
           this.type = undefined
+          for (var i = 0; i < 10; i ++) {
+            addSnowflake()
+          }
           // var newItem = game.add.sprite(this.x, this.y - 20, this.type)
           // newItem.anchor.setTo(0.5,0.75)
           // this.itemsprites.push(newItem)
         }
       }
-
+      function addSnowflake() {
+        var snowflake = game.add.sprite(game.world.randomX, game.world.randomY, 'snowflake')
+        snowflake.anchor.setTo(0.5, 0.5);
+        snowflake.scale.setTo(2,2)
+        snowAnim = snowflake.animations.add('flake')
+        snowAnim.onComplete.add(function() {
+          snowflake.destroy()
+        }, this);
+        snowAnim.play( 10, false)
+      }
       Station.prototype.addColor = function(color) {
         if (this.items.color === undefined && this.items.items !== undefined) {
           this.items.color = color
@@ -253,6 +265,7 @@ window.onload = function() {
       function create () {
         var audio = game.add.audio('backmusic')
         audio.play()
+        audio.loopFull()
         game.stage.smoothed = false
         game.add.sprite(0,0, 'background')
           elves = {}
@@ -298,67 +311,64 @@ window.onload = function() {
           // console.log(stations[elves[2].station].addColor(elves[2].inventory.color))
 
           airconsole = new AirConsole();
-              airconsole.onReady = function() {
-              };
-                airconsole.onConnect = function(device_id) {
-                  var active_players = airconsole.getActivePlayerDeviceIds();
-                  var connected_controllers = airconsole.getControllerDeviceIds();
-                  if (active_players.length == 0) {
-                    if (connected_controllers.length >= 3) {
-                      airconsole.setActivePlayers(3)
-                      var colors = ["red", "green", "blue"]
-                      for (var i = 0; i < 3; i++) {
-                        device_id = airconsole.convertPlayerNumberToDeviceId(i)
-                        elves[device_id] = new Elf(device_id, colors[i])
-                      }
-                      gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
-                      waiting.setText("")
-                    } else {
-                      waiting.setText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players")
-                      waiting.anchor.setTo(0.5, 0.5)
-                    }
-                  }
-                };
-                airconsole.onDisconnect = function(device_id) {
-                  var active_players = airconsole.getActivePlayerDeviceIds();
-                  var connected_controllers = airconsole.getControllerDeviceIds();
-                  if (active_players.length == 0) {
-                      waitingsetText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players");
-                      waiting.anchor.setTo(0.5, 0.5)
-                  } else {
-                    elves[device_id].elf.destroy()
-                    elves[device_id] = null
-                  }
-
+          airconsole.onReady = function() {
+          };
+          airconsole.onConnect = function(device_id) {
+            var active_players = airconsole.getActivePlayerDeviceIds();
+            var connected_controllers = airconsole.getControllerDeviceIds();
+            if (active_players.length == 0) {
+              if (connected_controllers.length >= 3) {
+                airconsole.setActivePlayers(3)
+                var colors = ["red", "green", "blue"]
+                for (var i = 0; i < 3; i++) {
+                  device_id = airconsole.convertPlayerNumberToDeviceId(i)
+                  elves[device_id] = new Elf(device_id, colors[i])
                 }
-              airconsole.onMessage = function(device_id, data) {
-                console.log(data)
-                console.log(device_id)
-                var elf = elves[device_id]
-                if (elf != null && data.action == "MOVE_STATION") {
-                  elf.gotoStation(data.station)
-                } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
-                  stations[elf.station].reset();
+                gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+                waiting.setText("")
+              } else {
+                waiting.setText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players")
+              }
+            }
+          };
+          airconsole.onDisconnect = function(device_id) {
+            var active_players = airconsole.getActivePlayerDeviceIds();
+            var connected_controllers = airconsole.getControllerDeviceIds();
+            if (active_players.length == 0) {
+                waitingsetText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players");
+                waiting.anchor.setTo(0.5, 0.5)
+            } else {
+              elves[device_id].elf.destroy()
+              elves[device_id] = null
+            }
+
+          }
+          airconsole.onMessage = function(device_id, data) {
+            console.log(data)
+            console.log(device_id)
+            var elf = elves[device_id]
+            if (elf != null && data.action == "MOVE_STATION") {
+              elf.gotoStation(data.station)
+            } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
+              stations[elf.station].reset();
+              airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+            } else if (elves[device_id] != null && data.action == "USE_ITEM") {
+              if (data.item == "item" && !elf.working) {
+                elf.startWorking()
+              } else {
+                if (stations[elf.station].addColor(elf.inventory.color)) {
+                  elf.getNewColor()
                   airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
-                } else if (elves[device_id] != null && data.action == "USE_ITEM") {
-                  if (data.item == "item" && !elf.working) {
-                    elf.startWorking()
-                  } else {
-                    if (stations[elf.station].addColor(elf.inventory.color)) {
-                      elf.getNewColor()
-                      airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
-                    } else {
-                      console.log("NOPE")
-                    }
-                  }
+                } else {
+                  console.log("NOPE")
                 }
               }
-              text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
+            }
+          }
+          text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
           text.anchor.setTo(1, 0);
           waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
-
-
-
+          waiting.anchor.setTo(0.5, 0.5)
       }
       function update() {
         for (elf in elves) {
