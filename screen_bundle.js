@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.3.0.6")
+	      console.log("version 0.0.0.0.3.0.8")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -75,7 +75,7 @@
 	        this.speed = 250
 	        this.elf = game.add.sprite(game.world.randomX, game.world.randomY, color + 'elf');
 	        this.elf.anchor.setTo(0.5, 0.5);
-	        this.ations.add('walk', [0,1], 10, true)
+	        this.elf.animations.add('walk', [0,1], 10, true)
 	        this.elf.animations.add('work', [2,3], 10, true)
 	        this.goalX = this.elf.x
 	        this.goalY = this.elf.y
