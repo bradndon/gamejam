@@ -1,6 +1,7 @@
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 var airconsole;
+var stationitems
 /**
  * Sets up the communication to the screen.
  */
@@ -31,15 +32,14 @@ function init() {
         // document.getElementById("workstation").innerHTML += data.station_items.color
       }
     } else if (data.action == "STATION_UPDATE") {
+      stationitems = data.station_items
       if (data.station_items.items != undefined) {
         for (item in data.station_items.items) {
-          if (data.station_items.items[item].indexOf("head") !== -1) {
-            document.getElementById("headimage").src = data.station_items.items[item] + ".png"
-          } else if (data.station_items.items[item].indexOf("body") !== -1) {
-            document.getElementById("bodyimage").src = data.station_items.items[item] + ".png"
-          } else {
-            document.getElementById("legsimage").src = data.station_items.items[item] + ".png"
-          }
+          data.station_items.items[item]
+          var elem = document.createElement("img");
+          elem.setAttribute("alt", "Flower");
+          elem.src = data.station_items.items[item] + ".png"
+          document.getElementById("workstationinner").appendChild(elem);
         }
       }
       if (data.station_items.color != undefined) {
@@ -76,39 +76,31 @@ window.onload = function() {
   init();
   document.getElementById("button0").addEventListener("click", function() {
     document.getElementById("moveButtonsView").style.display = "none";
-    document.getElementById("legsimage").src = ""
-    document.getElementById("bodyimage").src = ""
-    document.getElementById("headimage").src = ""
+    document.getElementById("workstationinner").innerHTML = "";
 
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 0})
   });
   document.getElementById("button1").addEventListener("click", function() {
     document.getElementById("moveButtonsView").style.display = "none";
-    document.getElementById("legsimage").src = ""
-    document.getElementById("bodyimage").src = ""
-    document.getElementById("headimage").src = ""
+    document.getElementById("workstationinner").innerHTML = "";
+
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 1})
   });
   document.getElementById("button2").addEventListener("click", function() {
     document.getElementById("moveButtonsView").style.display = "none";
-    document.getElementById("legsimage").src = ""
-    document.getElementById("bodyimage").src = ""
-    document.getElementById("headimage").src = ""
+    document.getElementById("workstationinner").innerHTML = "";
+
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 2})
   });
   document.getElementById("button3").addEventListener("click", function() {
     document.getElementById("moveButtonsView").style.display = "none";
-    document.getElementById("legsimage").src = ""
-    document.getElementById("bodyimage").src = ""
-    document.getElementById("headimage").src = ""
+    document.getElementById("workstationinner").innerHTML = "";
+
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
   });
   document.getElementById("inventory1").addEventListener("click", function() {
     console.log("inven1")
-    // if (document.getElementById("legsimage").src == "" || document.getElementById("bodyimage").src == "" || document.getElementById("headimage").src == "") {
-    //   document.getElementById("inventoryitemimage").src = ""
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
-    // }
 
   });
   document.getElementById("inventory2").addEventListener("click", function() {
