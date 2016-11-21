@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.1.0.5")
+	      console.log("version 0.0.0.0.1.0.6")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -347,8 +347,8 @@
 	                      gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 	                      waiting.setText("")
 	                    } else {
-	                      waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for ' + 3 - connected_controllers + " more players", { font: "108 Verdana", fill: "#ffffff", align: "center" });
-
+	                      waiting = game.add.text(game.world.centerX, game.world.centerY, 'Waiting for ' + (3 - connected_controllers.length) + " more players", { font: "64px Verdana", fill: "#ffffff", align: "center" });
+	                      waiting.anchor.setTo(0.5, 0.5)
 	                    }
 	                  }
 	                };
