@@ -165,6 +165,11 @@
 
 	    airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
 	  });
+
+	  document.getElementById("trashButton").addEventListener("click", function() {
+	    console.log("trash")
+	    airconsole.message(AirConsole.SCREEN, {action: "TRASH_STATION"})
+	  });
 	};
 
 

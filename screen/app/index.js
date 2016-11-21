@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.4.9")
+      console.log("version 0.0.0.0.1.0.0")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -105,7 +105,12 @@ window.onload = function() {
         this.y = y
       }
 
-
+      Station.prototype.reset = function() {
+        this.items = {}
+        this.complete = false
+        this.type = undefined
+        this.drawItems()
+      }
       Station.prototype.addItem = function(item) {
         console.log("ADDING " + item)
         if (this.items.items === undefined) {
@@ -168,16 +173,18 @@ window.onload = function() {
           this.itemsprites[i].destroy()
         }
         if (!this.complete) {
-          console.log("Not complete")
-          var height = 20;
-          for (var i = 0; i < this.items.items.length; i++) {
+          if (this.items.items !== undefined) {
+            console.log("Not complete")
+            var height = 20;
+            for (var i = 0; i < this.items.items.length; i++) {
 
-            var newItem = game.add.sprite(this.x, this.y - height, this.items.items[i])
-            newItem.anchor.setTo(0.5,0.5)
-            newItem.scale.setTo(0.5,0.5)
-            height += newItem.height
-            console.log(height)
-            this.itemsprites.push(newItem)
+              var newItem = game.add.sprite(this.x, this.y - height, this.items.items[i])
+              newItem.anchor.setTo(0.5,0.5)
+              newItem.scale.setTo(0.5,0.5)
+              height += newItem.height
+              console.log(height)
+              this.itemsprites.push(newItem)
+            }
           }
         } else {
           console.log("complete")
@@ -205,6 +212,7 @@ window.onload = function() {
         game.load.spritesheet('redelf', require('./assets/redelf.png'), 128, 128)
         game.load.spritesheet('greenelf', require('./assets/greenelf.png'), 128, 128)
         game.load.spritesheet('blueelf', require('./assets/blueelf.png'), 128, 128)
+        game.load.spritesheet('snowflake', require('./assets/Snowflake.png'), 64, 64)
         game.load.image('horsehead', require('../../horsehead.png'))
         game.load.image('horsebody', require('../../horsebody.png'))
         game.load.image('horselegs', require('../../horselegs.png'))
@@ -231,6 +239,9 @@ window.onload = function() {
           // stations[0].items = {items: ["horselegs", "horsebody"], color: ""}
           // stations[0].addItem("horsehead")
           // stations[0].addItem("manbody")
+          // stations[0].reset()
+          // stations[0].addItem("manlegs")
+
           stations.push(new Station(150,500))
           // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
           // stations[1].addItem("manhead")
@@ -287,6 +298,8 @@ window.onload = function() {
                 var elf = elves[device_id]
                 if (elf != null && data.action == "MOVE_STATION") {
                   elf.gotoStation(data.station)
+                } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
+                  stations[elf.station].reset();
                 } else if (elves[device_id] != null && data.action == "USE_ITEM") {
                   if (data.item == "item") {
                     stations[elf.station].addItem(elf.inventory.item)
