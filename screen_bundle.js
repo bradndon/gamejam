@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.2.4")
+	      console.log("version 0.0.0.0.0.3.0")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -97,8 +97,8 @@
 
 	      Elf.prototype.gotoStation = function(station) {
 	        console.log(station)
-	        this.goalX = stations[station].x;
-	        this.goalY = stations[station].y;
+	        this.goalX = stations[station].x + 80;
+	        this.goalY = stations[station].y - 20;
 	        this.prevStation = this.station
 	        this.station = station
 	        this.traveling = true
@@ -146,6 +146,9 @@
 	        this.station.scale.setTo(1,1)
 	        this.station.anchor.setTo(0.5,0.5)
 	        this.items = {}
+	        this.itemsprites = []
+	        this.complete = false
+	        this.type = undefined
 	        this.x = x
 	        this.y = y
 	      }
@@ -154,9 +157,75 @@
 	        if (this.items.items === undefined) {
 	          this.items.items = [item]
 	        } else {
-	          this.items.items.push(item)
+	          var items = this.items.items
+	          items.push(item)
+	          var head = false;
+	          var body = false;
+	          var legs = false;
+	          if (items.length >=2) {
+	            for (var i = 0; i < items.length; i++) {
+	              if ( !head && items[i].indexOf("head") !== -1 ) {
+	                  console.log("head")
+	                  head = true;
+	                  if (this.type === undefined) {
+	                    this.type = items[i].split("head")[0]
+	                  } else if (this.type != items[i].split("head")[0]) {
+	                    this.drawItems()
+	                    return;
+	                  }
+	                } else if (!body && items[i].indexOf("body") !== -1) {
+	                  body = true;
+	                  console.log(items[i].split("body")[0])
+	                  if (this.type === undefined) {
+	                    this.type = items[i].split("body")[0]
+	                  } else if (this.type != items[i].split("body")[0]) {
+	                    this.drawItems()
+	                    return;
+	                  }
+	                } else if (!legs && items[i].indexOf("legs") !== -1) {
+	                  legs = true;
+	                  console.log(items[i].split("legs")[0])
+	                  if (this.type === undefined) {
+	                    this.type = items[i].split("legs")[0]
+	                  } else if (this.type != items[i].split("legs")[0]) {
+	                    this.drawItems()
+	                    return;
+	                  }
+	                } else {
+	                  this.drawItems()
+	                  return;
+	              }
+	            }
+	          }
+	          if (items.length == 2 && head && body && this.type === "bear") {
+	            this.complete = true;
+	          } else if (items.length === 3 && head && body && legs) {
+	            this.complete = true;
+	          }
 	        }
+	        this.drawItems()
+	      }
 
+	      Station.prototype.drawItems = function() {
+	        for (var i = 0; i < this.itemsprites.length; i++) {
+	          this.itemsprites[i].destroy()
+	        }
+	        if (!this.complete) {
+	          var height = 20;
+	          for (var i = 0; i < this.items.items.length; i++) {
+
+	            var newItem = game.add.sprite(this.x, this.y - height, this.items.items[i])
+	            newItem.anchor.setTo(0.5,0.5)
+	            newItem.scale.setTo(0.5,0.5)
+	            height += newItem.height
+	            console.log(height)
+	            this.itemsprites.push(newItem)
+	          }
+	        } else {
+	          var newItem = game.add.sprite(this.x, this.y - 20, this.type)
+	          newItem.anchor.setTo(0.5,0.75)
+	          this.itemsprites.push(newItem)
+	        }
 	      }
 
 	      Station.prototype.addColor = function(color) {
@@ -172,20 +241,40 @@
 	        game.load.spritesheet('redelf', __webpack_require__(7), 128, 128)
 	        game.load.spritesheet('greenelf', __webpack_require__(8), 128, 128)
 	        game.load.spritesheet('blueelf', __webpack_require__(9), 128, 128)
-	        game.load.image('station', __webpack_require__(10));
-	        game.load.image('background', __webpack_require__(11))
+	        game.load.image('horsehead', __webpack_require__(10))
+	        game.load.image('horsebody', __webpack_require__(11))
+	        game.load.image('horselegs', __webpack_require__(12))
+	        game.load.image('manhead', __webpack_require__(13))
+	        game.load.image('manbody', __webpack_require__(14))
+	        game.load.image('manlegs', __webpack_require__(15))
+	        game.load.image('bearhead', __webpack_require__(16))
+	        game.load.image('bearbody', __webpack_require__(17))
+	        game.load.image('station', __webpack_require__(18));
+	        game.load.image('man', __webpack_require__(19))
+	        game.load.image('bear', __webpack_require__(20))
+	        game.load.image('horse', __webpack_require__(21))
+	        game.load.image('background', __webpack_require__(22))
 	      }
 	      var stations;
 	      var elves;
 	      function create () {
+	        game.stage.smoothed = false
 	        game.add.sprite(0,0, 'background')
 	          elves = {}
 
 	          stations = []
 	          stations.push(new Station(150,300))
-	          stations[0].items = {items: ["horselegs"], color: ""}
+	          // stations[0].items = {items: ["horselegs", "horsebody"], color: ""}
+	          // stations[0].addItem("horsehead")
+	          // stations[0].drawItems();
 	          stations.push(new Station(150,500))
+	          // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
+	          // stations[1].addItem("manhead")
+	          // stations[1].drawItems();
 	          stations.push(new Station(500,500))
+	          // stations[2].items = {items: ["bearbody"], color: ""}
+	          // stations[2].addItem("bearhead")
+	          // stations[2].drawItems();
 	          stations.push(new Station(500,300))
 
 	          // elves[1] = new Elf(1, "red")
@@ -104779,10 +104868,76 @@
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__.p + "5acef243eb1cf08c0be637f0ee598d56.png";
+	module.exports = __webpack_require__.p + "50378f3c0b0e59c1158a10ce77aed076.png";
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "b252e48d0a7bfe36ffb935a46bfa0564.png";
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "c9aa387ed29f6140a8b945fc50102d4f.png";
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "10c9cc1def17a7a4e82738f67c6b2c05.png";
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "0a6a6dfd5d3dbe45bd88cc98fb4f036e.png";
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "f5a74f85d7ab1262dbd27f0a96ea7e99.png";
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "f86900745c0b834d94ac0a468c386794.png";
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "9a8b04532445877aa6876397d7286b2f.png";
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "5acef243eb1cf08c0be637f0ee598d56.png";
+
+/***/ },
+/* 19 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "fab9f0cf60501e332a950b149f3f06d3.png";
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "a54888ef5bd0a7d17ad4190c1e5f3bfa.png";
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "84401a38e755b8eec5735942a9433ef6.png";
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "039656aa8789dd0e041cc59729bc38b7.png";

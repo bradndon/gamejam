@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.0.2.4")
+      console.log("version 0.0.0.0.0.3.0")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -44,8 +44,8 @@ window.onload = function() {
 
       Elf.prototype.gotoStation = function(station) {
         console.log(station)
-        this.goalX = stations[station].x;
-        this.goalY = stations[station].y;
+        this.goalX = stations[station].x + 80;
+        this.goalY = stations[station].y - 20;
         this.prevStation = this.station
         this.station = station
         this.traveling = true
@@ -93,6 +93,9 @@ window.onload = function() {
         this.station.scale.setTo(1,1)
         this.station.anchor.setTo(0.5,0.5)
         this.items = {}
+        this.itemsprites = []
+        this.complete = false
+        this.type = undefined
         this.x = x
         this.y = y
       }
@@ -101,9 +104,75 @@ window.onload = function() {
         if (this.items.items === undefined) {
           this.items.items = [item]
         } else {
-          this.items.items.push(item)
+          var items = this.items.items
+          items.push(item)
+          var head = false;
+          var body = false;
+          var legs = false;
+          if (items.length >=2) {
+            for (var i = 0; i < items.length; i++) {
+              if ( !head && items[i].indexOf("head") !== -1 ) {
+                  console.log("head")
+                  head = true;
+                  if (this.type === undefined) {
+                    this.type = items[i].split("head")[0]
+                  } else if (this.type != items[i].split("head")[0]) {
+                    this.drawItems()
+                    return;
+                  }
+                } else if (!body && items[i].indexOf("body") !== -1) {
+                  body = true;
+                  console.log(items[i].split("body")[0])
+                  if (this.type === undefined) {
+                    this.type = items[i].split("body")[0]
+                  } else if (this.type != items[i].split("body")[0]) {
+                    this.drawItems()
+                    return;
+                  }
+                } else if (!legs && items[i].indexOf("legs") !== -1) {
+                  legs = true;
+                  console.log(items[i].split("legs")[0])
+                  if (this.type === undefined) {
+                    this.type = items[i].split("legs")[0]
+                  } else if (this.type != items[i].split("legs")[0]) {
+                    this.drawItems()
+                    return;
+                  }
+                } else {
+                  this.drawItems()
+                  return;
+              }
+            }
+          }
+          if (items.length == 2 && head && body && this.type === "bear") {
+            this.complete = true;
+          } else if (items.length === 3 && head && body && legs) {
+            this.complete = true;
+          }
         }
+        this.drawItems()
+      }
 
+      Station.prototype.drawItems = function() {
+        for (var i = 0; i < this.itemsprites.length; i++) {
+          this.itemsprites[i].destroy()
+        }
+        if (!this.complete) {
+          var height = 20;
+          for (var i = 0; i < this.items.items.length; i++) {
+
+            var newItem = game.add.sprite(this.x, this.y - height, this.items.items[i])
+            newItem.anchor.setTo(0.5,0.5)
+            newItem.scale.setTo(0.5,0.5)
+            height += newItem.height
+            console.log(height)
+            this.itemsprites.push(newItem)
+          }
+        } else {
+          var newItem = game.add.sprite(this.x, this.y - 20, this.type)
+          newItem.anchor.setTo(0.5,0.75)
+          this.itemsprites.push(newItem)
+        }
       }
 
       Station.prototype.addColor = function(color) {
@@ -119,20 +188,40 @@ window.onload = function() {
         game.load.spritesheet('redelf', require('./assets/redelf.png'), 128, 128)
         game.load.spritesheet('greenelf', require('./assets/greenelf.png'), 128, 128)
         game.load.spritesheet('blueelf', require('./assets/blueelf.png'), 128, 128)
+        game.load.image('horsehead', require('../../horsehead.png'))
+        game.load.image('horsebody', require('../../horsebody.png'))
+        game.load.image('horselegs', require('../../horselegs.png'))
+        game.load.image('manhead', require('../../manhead.png'))
+        game.load.image('manbody', require('../../manbody.png'))
+        game.load.image('manlegs', require('../../manlegs.png'))
+        game.load.image('bearhead', require('../../bearhead.png'))
+        game.load.image('bearbody', require('../../bearbody.png'))
         game.load.image('station', require('./assets/station.png'));
+        game.load.image('man', require('../../man.png'))
+        game.load.image('bear', require('../../bear.png'))
+        game.load.image('horse', require('../../horse.png'))
         game.load.image('background', require('./assets/Background.png'))
       }
       var stations;
       var elves;
       function create () {
+        game.stage.smoothed = false
         game.add.sprite(0,0, 'background')
           elves = {}
 
           stations = []
           stations.push(new Station(150,300))
-          stations[0].items = {items: ["horselegs"], color: ""}
+          // stations[0].items = {items: ["horselegs", "horsebody"], color: ""}
+          // stations[0].addItem("horsehead")
+          // stations[0].drawItems();
           stations.push(new Station(150,500))
+          // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
+          // stations[1].addItem("manhead")
+          // stations[1].drawItems();
           stations.push(new Station(500,500))
+          // stations[2].items = {items: ["bearbody"], color: ""}
+          // stations[2].addItem("bearhead")
+          // stations[2].drawItems();
           stations.push(new Station(500,300))
 
           // elves[1] = new Elf(1, "red")
