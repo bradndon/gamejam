@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.5.0.1")
+	      console.log("version 0.0.0.0.5.0.4")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -66,7 +66,7 @@
 	      var completed = []
 	      var airconsole;
 	      var gameTimer;
-	      var counter = 120
+	      var counter = 10
 	      var waiting
 	      var Elf = function(device_id, color) {
 	        this.device_id = device_id
@@ -268,8 +268,6 @@
 	            }
 	          }
 	        } else {
-	          console.log("complete")
-
 	          completed.push(game.add.sprite(completed.length * 64, 20, this.type))
 	          this.items = {}
 	          this.complete = false;
@@ -466,13 +464,20 @@
 	      }
 
 	      function gameFinish() {
-	        for (elf in elves) {
 	          airconsole.broadcast(elves[elf].device_id, {action: "GAME_OVER", score: 75})
-	          elves[elf].elf.destroy()
-	          elves[elf] = null
 
-	        }
+	          for (s in stations) {
+	            stations[s].reset()
+	          }
+	          for (c in completed) {
+	            completed[c].destroy()
+	          }
+	          completed = []
+	          counter = 120
+	          text.setText(120);
+	          gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
 	      }
+
 
 
 	  };
