@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.0.4.8")
+	      console.log("version 0.0.0.0.0.4.9")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -294,10 +294,10 @@
 	          // stations[2].drawItems();
 	          stations.push(new Station(500,300))
 
-	          elves[1] = new Elf(1, "red")
-	          elves[2] = new Elf(2, "green");
-	          elves[1].gotoStation(1)
-	          elves[2].gotoStation(1)
+	          // elves[1] = new Elf(1, "red")
+	          // elves[2] = new Elf(2, "green");
+	          // elves[1].gotoStation(1)
+	          // elves[2].gotoStation(1)
 	          // stations[  elves[2].station].addItem(  elves[2].inventory.item)
 	          //   elves[2].getNewItem()
 	          // for (item in stations[  elves[2].station].items.items) {
