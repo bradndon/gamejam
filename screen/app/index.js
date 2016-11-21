@@ -331,7 +331,7 @@ window.onload = function() {
             var active_players = airconsole.getActivePlayerDeviceIds();
             var connected_controllers = airconsole.getControllerDeviceIds();
             if (active_players.length == 0) {
-              if (connected_controllers.length >= 3) {
+              if (connected_controllers.length >= 2) {
                 airconsole.setActivePlayers(2)
                 var colors = ["red", "green", "blue"]
                 for (var i = 0; i < 2; i++) {
