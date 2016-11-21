@@ -104,6 +104,7 @@ window.onload = function() {
     airconsole.message(AirConsole.SCREEN, {action: "MOVE_STATION", station: 3})
   });
   document.getElementById("inventory1").addEventListener("click", function() {
+    console.log("inven1")
     if (document.getElementById("legsimage").src == "" || document.getElementById("bodyimage").src == "" || document.getElementById("headimage").src == "") {
       document.getElementById("inventoryitemimage").src = ""
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
@@ -111,6 +112,8 @@ window.onload = function() {
 
   });
   document.getElementById("inventory2").addEventListener("click", function() {
+    console.log("inven2")
+
     airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "color"})
   });
 };
