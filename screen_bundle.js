@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.3.0.8")
+	      console.log("version 0.0.0.0.4.0.0")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -411,6 +411,7 @@
 	                elf.elf.animations.stop()
 	                elf.elf.frame = 0
 	                stations[elf.station].reset();
+	                airconsole.message(elf.device_id, {action: "TRASH_FINISH"})
 	                airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
 	              }, this);
 
