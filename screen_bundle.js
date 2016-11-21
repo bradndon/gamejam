@@ -105,7 +105,8 @@
 	          elf.working = false;
 	          this.elf.animations.stop()
 	          this.elf.frame = 0
-	          stations[elf.station].addItem(elf.inventory.item)
+	          stations[this.station].addItem(this.inventory.item)
+	          this.getNewItem()
 	          console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items.items})
 	          airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
 	        }, this);
