@@ -155,7 +155,7 @@
 	  document.getElementById("inventory1").addEventListener("click", function() {
 	    console.log("inven1")
 	    console.log(stationitems.items)
-	    if (stationitems.items.length < 3) {
+	    if (stationitems.items === undefined || stationitems.items.length < 3) {
 	      airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
 	    }
 
