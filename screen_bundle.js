@@ -57,7 +57,7 @@
 	var AirConsole = __webpack_require__(6)
 
 	window.onload = function() {
-	      console.log("version 0.0.0.0.2.0.0")
+	      console.log("version 0.0.0.0.2.0.2")
 	      var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
 	      var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
 	      var ITEM_NAMES = ["horse", "bear", "man"]
@@ -107,8 +107,8 @@
 	          this.elf.frame = 0
 	          stations[this.station].addItem(this.inventory.item)
 	          this.getNewItem()
-	          console.log({action: "STATION_UPDATE", station_items: stations[elf.station].items.items})
-	          airconsole.message(elf.device_id, {action: "STATION_UPDATE", station_items: stations[elf.station].items})
+	          console.log({action: "STATION_UPDATE", station_items: stations[this.station].items.items})
+	          airconsole.message(this.device_id, {action: "STATION_UPDATE", station_items: stations[this.station].items})
 	        }, this);
 
 	      }
