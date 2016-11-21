@@ -105,10 +105,10 @@ window.onload = function() {
   });
   document.getElementById("inventory1").addEventListener("click", function() {
     console.log("inven1")
-    if (document.getElementById("legsimage").src == "" || document.getElementById("bodyimage").src == "" || document.getElementById("headimage").src == "") {
-      document.getElementById("inventoryitemimage").src = ""
+    // if (document.getElementById("legsimage").src == "" || document.getElementById("bodyimage").src == "" || document.getElementById("headimage").src == "") {
+    //   document.getElementById("inventoryitemimage").src = ""
       airconsole.message(AirConsole.SCREEN, {action: "USE_ITEM", item: "item"})
-    }
+    // }
 
   });
   document.getElementById("inventory2").addEventListener("click", function() {
