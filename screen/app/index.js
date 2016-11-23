@@ -292,7 +292,7 @@ window.onload = function() {
           // stations[1].items = {items: ["manlegs", "manbody"], color: ""}
           // stations[1].addItem("manhead")
           // stations[1].drawItems();
-          // stations.push(new Station(500,500))
+          stations.push(new Station(500,500))
           // stations[2].items = {items: ["bearbody"], color: ""}
           // stations[2].addItem("bearhead")
           // stations[2].drawItems();
@@ -329,10 +329,10 @@ window.onload = function() {
             var active_players = airconsole.getActivePlayerDeviceIds();
             var connected_controllers = airconsole.getControllerDeviceIds();
             if (active_players.length == 0) {
-              if (connected_controllers.length >= 2) {
-                airconsole.setActivePlayers(2)
+              if (connected_controllers.length >= 3) {
+                airconsole.setActivePlayers(3)
                 var colors = ["red", "green", "blue"]
-                for (var i = 0; i < 2; i++) {
+                for (var i = 0; i < 3; i++) {
                   device_id = airconsole.convertPlayerNumberToDeviceId(i)
                   elves[device_id] = new Elf(device_id, colors[i])
                 }
