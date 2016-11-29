@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.5.0.4")
+      console.log("version 0.0.0.0.5.0.6")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -331,7 +331,6 @@ window.onload = function() {
             if (active_players.length == 0) {
               if (connected_controllers.length >= 3) {
                 airconsole.setActivePlayers(3)
-                var colors = ["red", "green", "blue"]
 
                 waiting.setText("Press screen to start")
                 airconsole.broadcast({action: "GAME_READY", score: 75})
@@ -358,6 +357,8 @@ window.onload = function() {
             console.log(device_id)
             var elf = elves[device_id]
             if (data.action == "START_GAME") {
+              var colors = ["red", "green", "blue"]
+
               for (var i = 0; i < 3; i++) {
                 device_id = airconsole.convertPlayerNumberToDeviceId(i)
                 elves[device_id] = new Elf(device_id, colors[i])
