@@ -60,6 +60,8 @@ function init() {
       // document.getElementById("inventory2").style.background = data.color
     } else if (data.action == "TRASH_FINISH") {
       document.getElementById("stopper").style.display = "none"
+    } else if (data.action == "GAME_READY") {
+      document.getElementById("stopper").style.display = "none"
     }
   }
 };
@@ -125,5 +127,11 @@ window.onload = function() {
     console.log("trash")
     document.getElementById("stopper").style.display = "block"
     airconsole.message(AirConsole.SCREEN, {action: "TRASH_STATION"})
+  });
+
+  document.getElementById("startMenu").addEventListener("click", function() {
+    console.log("start")
+    // document.getElementById("stopper").style.display = "block"
+    airconsole.message(AirConsole.SCREEN, {action: "START_GAME"})
   });
 };

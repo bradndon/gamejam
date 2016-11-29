@@ -66,7 +66,7 @@
 	      var completed = []
 	      var airconsole;
 	      var gameTimer;
-	      var counter = 10
+	      var counter = 120
 	      var waiting
 	      var Elf = function(device_id, color) {
 	        this.device_id = device_id
@@ -385,13 +385,10 @@
 	              if (connected_controllers.length >= 3) {
 	                airconsole.setActivePlayers(3)
 	                var colors = ["red", "green", "blue"]
-	                for (var i = 0; i < 3; i++) {
-	                  device_id = airconsole.convertPlayerNumberToDeviceId(i)
-	                  elves[device_id] = new Elf(device_id, colors[i])
-	                }
-	                gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
-	                waiting.setText("")
-	                intro.destroy()
+
+	                waiting.setText("Press screen to start")
+	                airconsole.broadcast({action: "GAME_READY", score: 75})
+
 	              } else {
 	                waiting.setText('Waiting for ' + (3 - connected_controllers.length) + "\nmore players")
 	              }
@@ -413,7 +410,15 @@
 	            console.log(data)
 	            console.log(device_id)
 	            var elf = elves[device_id]
-	            if (elf != null && data.action == "MOVE_STATION") {
+	            if (data.action == "START_GAME") {
+	              for (var i = 0; i < 3; i++) {
+	                device_id = airconsole.convertPlayerNumberToDeviceId(i)
+	                elves[device_id] = new Elf(device_id, colors[i])
+	              }
+	              gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
+	              intro.destroy()
+
+	            } else if (elf != null && data.action == "MOVE_STATION") {
 	              elf.gotoStation(data.station)
 	            } else if (elves[device_id] != null && data.action == "TRASH_STATION") {
 	              elf.elf.animations.play('work');
@@ -441,7 +446,7 @@
 	              }
 	            }
 	          }
-	          text = game.add.text(game.world.width - 10, 0, '60', { font: "32px Verdana", fill: "#ffffff", align: "center" });
+	          text = game.add.text(game.world.width - 10, 0, '120', { font: "32px Verdana", fill: "#ffffff", align: "center" });
 	          text.anchor.setTo(1, 0);
 	          waiting = game.add.text(game.world.centerX, game.world.centerY - 90, 'Waiting for 3\nmore players', { font: "64px Verdana", fill: "#ffffff", align: "center" });
 	          waiting.anchor.setTo(0.5, 0.5)
@@ -464,7 +469,7 @@
 	      }
 
 	      function gameFinish() {
-	          airconsole.broadcast(elves[elf].device_id, {action: "GAME_OVER", score: 75})
+	          airconsole.broadcast({action: "GAME_OVER", score: 75})
 
 	          for (s in stations) {
 	            stations[s].reset()
