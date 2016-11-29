@@ -411,6 +411,7 @@
 	            var elf = elves[device_id]
 	            if (data.action == "START_GAME") {
 	              var colors = ["red", "green", "blue"]
+	              waiting.setText("")
 
 	              for (var i = 0; i < 3; i++) {
 	                device_id = airconsole.convertPlayerNumberToDeviceId(i)

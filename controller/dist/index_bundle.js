@@ -115,6 +115,8 @@
 	      document.getElementById("stopper").style.display = "none"
 	    } else if (data.action == "GAME_READY") {
 	      document.getElementById("stopper").style.display = "none"
+	    } else if (data.action == "START_GAME") {
+	      document.getElementById("startMenu").style.display = "none"
 	    }
 	  }
 	};
@@ -184,8 +186,8 @@
 
 	  document.getElementById("startMenu").addEventListener("click", function() {
 	    console.log("start")
-	    // document.getElementById("stopper").style.display = "block"
-	    airconsole.message(AirConsole.SCREEN, {action: "START_GAME"})
+	    document.getElementById("startMenu").style.display = "none"
+	    airconsole.broadcast({action: "START_GAME"})
 	  });
 	};
 
