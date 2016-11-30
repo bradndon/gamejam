@@ -25,6 +25,7 @@
           width: 50%;
           height: 50%;
           border: none;
+          position: relative;
         }
         #inventoryView {
           float: left;
@@ -90,10 +91,22 @@
     <body>
       <div id="topbar"></div>
       <div id="moveButtonsView">
-        <button id="button0" class="moveButton" style="background-color:blue">Goto top left</button>
-        <button id="button3" class="moveButton" style="background-color:green">Goto top right</button>
-        <button id="button1" class="moveButton" style="background-color:red">Goto bottom left</button>
-        <button id="button2" class="moveButton" style="background-color:purple">Goto bottom right</button>
+        <button id="button0" class="moveButton" >
+          <img src="topleft.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto top left
+        </button>
+        <button id="button3" class="moveButton" >
+          <img src="topright.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto top right
+        </button>
+        <button id="button1" class="moveButton" >
+          <img src="bottomleft.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto bottom left
+        </button>
+        <button id="button2" class="moveButton" >
+          <img src="bottomright.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto bottom right
+        </button>
 
       </div>
       <div id="inventoryView">
@@ -121,7 +134,7 @@
           <img style="height: 80%;" src="trash.png">
         </div>
       </div>
-      <div id="startMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: blue; display: flex; justify-content: center; align-items: center">Start game</div>
+      <div id="startMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000074; display: flex; justify-content: center; align-items: center">Start game</div>
       <div id="stopper" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); "></div>
 </html>
 <script type="text/javascript" src="index_bundle.js"></script>

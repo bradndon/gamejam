@@ -64,7 +64,7 @@
 	   * Checks if this device is part of the active game.
 	   */
 	  airconsole.onActivePlayersChange = function(player) {
-	    var colors = ["red", "green", "blue"]
+	    var colors = ["#FB0007", "#11810D", "#000074"]
 	    if (player !== undefined) {
 	      document.getElementById("topbar").style.background = colors[player]
 	    }
@@ -115,7 +115,11 @@
 	      document.getElementById("stopper").style.display = "none"
 	    } else if (data.action == "GAME_READY") {
 	      document.getElementById("stopper").style.display = "none"
+	      document.getElementById("startMenu").style.display = "block"
+
 	    } else if (data.action == "START_GAME") {
+	      document.getElementById("stopper").style.display = "none"
+
 	      document.getElementById("startMenu").style.display = "none"
 	    }
 	  }
