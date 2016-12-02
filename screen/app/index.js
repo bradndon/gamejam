@@ -4,7 +4,7 @@ window.Phaser = require('phaser/build/custom/phaser-split')
 var AirConsole = require('airconsole/airconsole-1.6.0')
 
 window.onload = function() {
-      console.log("version 0.0.0.0.5.0.10")
+      console.log("version 0.0.0.0.5.0.12")
       var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
       var ITEMS = {"horse": ["horsebody", "horselegs", "horsehead"], "bear": ["bearbody", "bearhead"], "man": ["manbody", "manlegs", "manhead"]}
       var ITEM_NAMES = ["horse", "bear", "man"]
@@ -362,9 +362,7 @@ window.onload = function() {
 
               for (var i = 0; i < 3; i++) {
                 device_id = airconsole.convertPlayerNumberToDeviceId(i)
-                if (elves[device_id] === null) {
-                  elves[device_id] = new Elf(device_id, colors[i])
-                }
+                elves[device_id] = new Elf(device_id, colors[i])
               }
               gameTimer = game.time.events.loop(Phaser.Timer.SECOND, updateCounter, this);
               intro.destroy()
