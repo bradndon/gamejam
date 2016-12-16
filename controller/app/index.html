@@ -1,0 +1,139 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+        *, html, body {
+          padding: 0;
+          margin: 0;
+          box-sizing: border-box;
+        }
+        html {
+          background-color: black;
+        }
+        #topbar {
+          width: 100%;
+          height: 10%;
+          background-color: blue;
+        }
+        #moveButtonsView {
+          position: relative;
+          width: 100%;
+          height: 40%;
+        }
+        .moveButton {
+          float: left;
+          width: 50%;
+          height: 50%;
+          border: none;
+          position: relative;
+        }
+        #inventoryView {
+          float: left;
+          height: 50%;
+          width: 48%;
+        }
+        .inventory {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: 100%;
+          height: 50%;
+          position: relative;
+        }
+        #inventory1, #inventory2 {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+        #workstation {
+          width: 52%;
+          height: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          float: left;
+          position: relative;
+        }
+        #inventoryitemimage {
+        }
+        @-webkit-keyframes flash {
+          0% { opacity: 0; }
+          50% {opacity: 1;}
+          100% { opacity: 0; }
+        }
+        @-moz-keyframes flash {
+          0% { opacity: 0; }
+          50% {opacity: 1;}
+          100% { opacity: 0; }
+        }
+        @-o-keyframes flash {
+          0% { opacity: 0; }
+          50% {opacity: 1;}
+          100% { opacity: 0; }
+        }
+        @keyframes flash {
+          0% { opacity: 0; }
+          50% {opacity: 1;}
+          100% { opacity: 0; }
+        }
+        .anibutton {
+          -webkit-animation: flash .2s infinite;
+          -o-animation: flash .2s infinite;
+          -moz-animation: flash .2s infinite;
+          animation: flash .2s infinite;
+        }
+        </style>
+
+    </head>
+    <body>
+      <div id="topbar"></div>
+      <div id="moveButtonsView">
+        <button id="button0" class="moveButton" >
+          <img src="topleft.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto top left
+        </button>
+        <button id="button3" class="moveButton" >
+          <img src="topright.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto top right
+        </button>
+        <button id="button1" class="moveButton" >
+          <img src="bottomleft.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto bottom left
+        </button>
+        <button id="button2" class="moveButton" >
+          <img src="bottomright.png" style="width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          Goto bottom right
+        </button>
+
+      </div>
+      <div id="inventoryView">
+        <div class="inventory" >
+          <img src="objectframe.png" style="z-index: -1;width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          <img src="objectframe2.png" class="anibutton" style="display:block;z-index: -1;width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          <div id="inventory1" style="width: 100%; height: 100%;">
+          <img id="inventoryitemimage" src="">
+        </div>
+        </div>
+        <div class="inventory">
+          <img src="paintframe.png" style="z-index: -1;width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          <img src="paintframe2.png" class="anibutton" style="display:block;z-index: -1;width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+          <div id="inventory2" style="width: 100%; height: 100%;">
+
+          Inventory Object 2
+          </div>
+        </div>
+      </div>
+      <div id="workstation">
+        <img src="woodframe.png" style="z-index: -1;width: 100%; height: 100%; position:absolute; top: 0; left: 0;">
+        <div id="workstationinner" style="width: 100%; height: 100%; display:flex;justify-content:center;align-items:center;flex-direction: column">
+        </div>
+        <div id="trashButton" style="width: 40%; height: 20%; background-color: #FA0007; position:absolute; bottom: 0; right: 0; display: flex; justify-content: center; align-items: center;">
+          <img style="height: 80%;" src="trash.png">
+        </div>
+      </div>
+      <div id="startMenu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000074; display: flex; justify-content: center; align-items: center">Start game</div>
+      <div id="stopper" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); "></div>
+</html>
